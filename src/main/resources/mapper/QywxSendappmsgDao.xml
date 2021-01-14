@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gag.enterprisewxmobile.system.sendAppMsg.dao.QywxSendappmsgDao">
+
+    <resultMap type="com.gag.enterprisewxmobile.system.sendAppMsg.entity.QywxSendappmsg" id="QywxSendappmsgMap">
+        <result property="touser" column="touser" jdbcType="VARCHAR"/>
+        <result property="toparty" column="toparty" jdbcType="VARCHAR"/>
+        <result property="totag" column="totag" jdbcType="VARCHAR"/>
+        <result property="msgtype" column="msgtype" jdbcType="VARCHAR"/>
+        <result property="agentid" column="agentid" jdbcType="INTEGER"/>
+        <result property="safe" column="safe" jdbcType="INTEGER"/>
+        <result property="enable_id_trans" column="enable_id_trans" jdbcType="INTEGER"/>
+        <result property="enable_duplicate_check" column="enable_duplicate_check" jdbcType="INTEGER"/>
+        <result property="duplicate_check_interval" column="duplicate_check_interval" jdbcType="INTEGER"/>
+    </resultMap>
+
+
+    <select id="queryBymsg_id" resultType="com.gag.enterprisewxmobile.system.sendAppMsg.entity.QywxSendappmsg">
+        select
+          touser, toparty, totag, msgtype, agentid, safe, enable_id_trans, enable_duplicate_check, duplicate_check_interval
+        from dbo.qywx_SendAppMsg
+        where send_app_msg_id = #{send_app_msg_id}
+    </select>
+
+</mapper>

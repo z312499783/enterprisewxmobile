@@ -1,0 +1,89 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    druid:
+      url: jdbc:sqlserver://192.168.188.99:1433;DatabaseName=ecs
+      username: hyt
+      password: hyt123
+
+      # 初始连接数
+      initial-size: 10
+      # 最大连接池数量
+      max-active: 100
+      # 最小连接池数量
+      min-idle: 10
+      # 配置获取连接等待超时的时间
+      max-wait: 60000
+      # 打开PSCache，并且指定每个连接上PSCache的大小
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      min-evictable-idle-time-millis: 300000
+      #验证查询validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /monitor/druid/*
+      filter:
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: false
+        wall:
+          config:
+            multi-statement-allow: true
+
+  thymeleaf:
+    prefix: classpath:/templates/
+    encoding: UTF-8
+    mode: HTML
+    cache: false
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    jedis:
+      pool:
+        max-wait: 30000
+        max-active: 100
+        max-idle: 20
+        min-idle: 0
+    timeout: 3000
+
+# 开发环境配置
+server:
+  # 服务端口
+  port: 7672
+  tomcat:
+    # tomcat的URI编码
+    uri-encoding: UTF-8
+    # tomcat最大线程数，默认为200
+    max-threads: 800
+    # Tomcat启动初始化的线程数，默认值25
+    min-spare-threads: 30
+
+mybatis:
+  mapper-locations: classpath:/mapper/*Dao.xml
+  typeAliasesPackage: com.gag.enterprisewxmobile.*
+  # spring boot集成mybatis的方式打印sql
+  #  configuration:
+  #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  # 加载全局的配置文件
+  #configLocation: classpath:mybatis-config.xml
+
+# PageHelper分页插件
+pagehelper:
+  helperDialect: SQLServer
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+logging:
+  config: classpath:logback-spring.xml
+  file:
+    path: /logs

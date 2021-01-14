@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gag.enterprisewxmobile.system.party.dao.QywxSysPartyDao">
+
+    <resultMap type="com.gag.enterprisewxmobile.system.party.entity.QywxSysParty" id="QywxSysPartyMap">
+        <result property="partyId" column="party_id" jdbcType="INTEGER"/>
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="partyname" column="partyname" jdbcType="VARCHAR"/>
+        <result property="parentid" column="parentid" jdbcType="INTEGER"/>
+        <result property="ordernum" column="ordernum" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="QywxSysPartyMap">
+        select
+          party_id, id, partyname, parentid, ordernum
+        from dbo.qywx_sys_party
+        where party_id = #{partyId}
+    </select>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="QywxSysPartyMap">
+        select
+          party_id, id, partyname, parentid, ordernum
+        from dbo.qywx_sys_party
+        <where>
+            <if test="partyId != null">
+                and party_id = #{partyId}
+            </if>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="partyname != null and partyname != ''">
+                and partyname = #{partyname}
+            </if>
+            <if test="parentid != null">
+                and parentid = #{parentid}
+            </if>
+            <if test="ordernum != null and ordernum != ''">
+                and ordernum = #{ordernum}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="partyId" useGeneratedKeys="true">
+        insert into dbo.qywx_sys_party(id, partyname, parentid, ordernum)
+        values (#{id}, #{partyname}, #{parentid}, #{ordernum})
+    </insert>
+
+
+    <delete id="deleteAll">
+        delete from dbo.qywx_sys_party
+    </delete>
+
+</mapper>

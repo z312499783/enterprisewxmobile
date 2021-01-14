@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gag.enterprisewxmobile.system.menu.dao.QywxSysMenuDao">
+
+    <resultMap type="com.gag.enterprisewxmobile.system.menu.entity.QywxSysMenu" id="QywxSysMenuMap">
+        <result property="menuId" column="menu_id" jdbcType="INTEGER"/>
+        <result property="menuName" column="menu_name" jdbcType="VARCHAR"/>
+        <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
+        <result property="orderNum" column="order_num" jdbcType="INTEGER"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="menuType" column="menu_type" jdbcType="VARCHAR"/>
+        <result property="visible" column="visible" jdbcType="VARCHAR"/>
+        <result property="perms" column="perms" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <sql id="selectMenuVo">
+        select menu_id, menu_name, parent_id, order_num, url, menu_type, visible, perms, create_by, create_time
+		from dbo.qywx_sys_menu
+    </sql>
+
+    <select id="selectMenuAll" resultMap="QywxSysMenuMap">
+        <include refid="selectMenuVo"/>
+        order by order_num
+    </select>
+
+    <select id="selectMenuNormalAll" resultMap="QywxSysMenuMap">
+        select distinct m.menu_id, m.parent_id, m.menu_name, m.url, m.perms , m.menu_type, m.order_num, m.create_time
+		from dbo.qywx_sys_menu m
+		where m.menu_type in ('M', 'C') and m.visible = 0
+		order by m.order_num
+    </select>
+
+    <select id="selectMenusByUserId"  resultMap="QywxSysMenuMap">
+        select distinct m.menu_id, m.parent_id, m.menu_name, m.url, m.perms , m.menu_type , m.order_num, m.create_time
+		from dbo.qywx_sys_menu m
+			 left join dbo.qywx_sys_role_menu rm on m.menu_id = rm.menu_id
+			 left join dbo.qywx_sys_user_role ur on rm.role_id = ur.role_id
+			 LEFT JOIN dbo.qywx_sys_role ro on ur.role_id = ro.role_id
+		where ur.user_id = #{userId}
+		    and m.menu_type in ('M', 'C')
+		    and m.visible = 0
+		    and ro.status = 0
+		order by m.order_num
+    </select>
+
+    <select id="selectPermsByUserId" resultType="java.lang.String">
+        select distinct m.perms
+		from qywx_sys_menu m
+			 left join qywx_sys_role_menu rm on m.menu_id = rm.menu_id
+			 left join qywx_sys_user_role ur on rm.role_id = ur.role_id
+		where ur.user_id = #{userId};
+    </select>
+
+    <select id="selectMenuTree" resultType="java.lang.String">
+        select cast(m.menu_id as varchar)+cast(m.perms as VARCHAR) as perms
+		from qywx_sys_menu m
+		left join qywx_sys_role_menu rm on m.menu_id = rm.menu_id
+		 where rm.role_id = #{roleId} order by m.parent_id, m.order_num
+    </select>
+
+    <select id="selectMenuList"  resultMap="QywxSysMenuMap">
+        <include refid="selectMenuVo"/>
+        <where>
+            <if test="menuName != null and menuName != ''">
+                <bind name="bindmenuName" value="'%'+#{menuName}+'%'"/>
+                AND menu_name like #{bindmenuName})
+            </if>
+            <if test="visible != null and visible != ''">
+                AND visible = #{visible}
+            </if>
+        </where>
+        order by order_num
+    </select>
+
+    <select id="selectMenuById" resultMap="QywxSysMenuMap">
+        SELECT t.menu_id, t.parent_id, t.menu_name, t.order_num, t.url, t.menu_type, t.visible, t.perms, t.remark,
+			(SELECT menu_name FROM qywx_sys_menu WHERE menu_id = t.parent_id) parent_name
+		FROM qywx_sys_menu t
+		where t.menu_id = #{menuId}
+    </select>
+
+    <select id="selectCountMenuByParentId" resultType="java.lang.Integer">
+        select count(1) from qywx_sys_menu where parent_id= #{parentId}
+    </select>
+
+    <select id="checkMenuNameUnique" resultMap="QywxSysMenuMap">
+        <include refid="selectMenuVo"/>
+        where menu_name=#{menuName} and parent_id = #{parentId}
+    </select>
+
+
+    <insert id="insertMenu">
+        insert into qywx_sys_menu(
+        <if test="parentId != null and parentId != 0">parent_id,</if>
+        <if test="menuName != null and menuName != ''">menu_name,</if>
+        <if test="orderNum != null and orderNum != ''">order_num,</if>
+        <if test="url != null and url != ''">url,</if>
+        <if test="menuType != null and menuType != ''">menu_type,</if>
+        <if test="visible != null">visible,</if>
+        <if test="perms !=null and perms != ''">perms,</if>
+        <if test="remark != null and remark != ''">remark,</if>
+        <if test="createBy != null and createBy != ''">create_by,</if>
+        create_time
+        )values(
+        <if test="parentId != null and parentId != 0">#{parentId},</if>
+        <if test="menuName != null and menuName != ''">#{menuName},</if>
+        <if test="orderNum != null and orderNum != ''">#{orderNum},</if>
+        <if test="url != null and url != ''">#{url},</if>
+        <if test="menuType != null and menuType != ''">#{menuType},</if>
+        <if test="visible != null">#{visible},</if>
+        <if test="perms !=null and perms != ''">#{perms},</if>
+        <if test="remark != null and remark != ''">#{remark},</if>
+        <if test="createBy != null and createBy != ''">#{createBy},</if>
+        GETDATE()
+        )
+    </insert>
+
+    <update id="updateMenu">
+        update qywx_sys_menu
+        <set>
+            <if test="menuName != null and menuName != ''">menu_name = #{menuName},</if>
+            <if test="parentId != null and parentId != 0">parent_id = #{parentId},</if>
+            <if test="orderNum != null and orderNum != ''">order_num = #{orderNum},</if>
+            <if test="url != null and url != ''">url = #{url},</if>
+            <if test="menuType != null and menuType != ''">menu_type = #{menuType},</if>
+            <if test="visible != null">visible = #{visible},</if>
+            <if test="perms !=null and perms != ''">perms = #{perms},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            update_time = GETDATE()
+        </set>
+        where menu_id = #{menuId}
+    </update>
+
+
+    <delete id="deleteMenuById">
+        delete from qywx_sys_menu where menu_id = #{menuId} or parent_id = #{menuId}
+    </delete>
+
+
+
+
+
+</mapper>

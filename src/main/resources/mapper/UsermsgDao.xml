@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gag.enterprisewxmobile.system.user.dao.UsermsgDao">
+
+    <resultMap type="com.gag.enterprisewxmobile.system.user.entity.Usermsg" id="UsermsgMap">
+        <result property="usermsgId" column="usermsg_id" jdbcType="INTEGER"/>
+        <result property="userid" column="userid" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="department" column="department" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="UsermsgMap">
+        select
+          usermsg_id, userid, name, department
+        from dbo.usermsg
+        where usermsg_id = #{usermsgId}
+    </select>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="UsermsgMap">
+        select
+          usermsg_id, userid, name, department
+        from dbo.usermsg
+        <where>
+            <if test="usermsgId != null">
+                and usermsg_id = #{usermsgId}
+            </if>
+            <if test="userid != null and userid != ''">
+                and userid = #{userid}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="department != null">
+                and department = #{department}
+            </if>
+        </where>
+    </select>
+
+    <select id="findByName" resultType="com.gag.enterprisewxmobile.system.user.entity.Usermsg">
+        select
+          usermsg_id, userid, name, department,role
+        from dbo.usermsg
+        where userid = #{userid}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="usermsgId" useGeneratedKeys="true">
+        insert into dbo.usermsg(userid, name, department)
+        values (#{userid}, #{name}, #{department})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update dbo.usermsg
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="department != null">
+                department = #{department},
+            </if>
+        </set>
+        where userid = #{userid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from dbo.usermsg where usermsg_id = #{usermsgId}
+    </delete>
+
+
+    <delete id="deleteUsermsgByUserid">
+        delete from dbo.usermsg where userid = #{userid}
+    </delete>
+
+</mapper>

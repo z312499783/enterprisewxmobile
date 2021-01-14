@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gag.enterprisewxmobile.system.ONLINEUSER.dao.OnlineuserDao">
+
+    <resultMap type="com.gag.enterprisewxmobile.system.ONLINEUSER.entity.Onlineuser" id="OnlineuserMap">
+        <result property="name" column="NAME" jdbcType="VARCHAR"/>
+        <result property="machinealias" column="MachineAlias" jdbcType="VARCHAR"/>
+        <result property="connecttype" column="ConnectType" jdbcType="INTEGER"/>
+        <result property="checktime" column="CHECKTIME" jdbcType="TIMESTAMP"/>
+        <result property="checktype" column="CHECKTYPE" jdbcType="VARCHAR"/>
+        <result property="machinenumber" column="MachineNumber" jdbcType="INTEGER"/>
+        <result property="ip" column="IP" jdbcType="VARCHAR"/>
+        <result property="userid" column="USERID" jdbcType="INTEGER"/>
+        <result property="addtime" column="ADDTIME" jdbcType="VARCHAR"/>
+        <result property="sendtime" column="SENDTIME" jdbcType="TIMESTAMP"/>
+        <result property="sendcount" column="SENDCOUNT" jdbcType="INTEGER"/>
+        <result property="sn" column="sn" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="OnlineuserMap">
+        select
+          NAME, MachineAlias, ConnectType, CHECKTIME, CHECKTYPE, MachineNumber, IP, USERID, ADDTIME,'分钟' as unit,SENDTIME,SENDCOUNT,sn
+        from GAGKQJB.dbo.ONLINEUSER
+        <where>
+            <if test="name != null and name != ''">
+                and NAME = #{name}
+            </if>
+            <if test="machinealias != null and machinealias != ''">
+                and MachineAlias = #{machinealias}
+            </if>
+            <if test="connecttype != null">
+                and ConnectType = #{connecttype}
+            </if>
+            <if test="checktime != null">
+                and CHECKTIME = #{checktime}
+            </if>
+            <if test="checktype != null and checktype != ''">
+                and CHECKTYPE = #{checktype}
+            </if>
+            <if test="machinenumber != null">
+                and MachineNumber = #{machinenumber}
+            </if>
+            <if test="ip != null and ip != ''">
+                and IP = #{ip}
+            </if>
+            <if test="userid != null">
+                and USERID = #{userid}
+            </if>
+            <if test="addtime != null and addtime != ''">
+                and ADDTIME = #{addtime}
+            </if>
+        </where>
+        order by CONVERT(int,ADDTIME) desc
+    </select>
+
+    <select id="checktimeOnlineuser" resultType="com.gag.enterprisewxmobile.system.ONLINEUSER.entity.Onlineuser">
+        EXEC GAGKQJB.[dbo].[kqjb]
+    </select>
+
+
+</mapper>

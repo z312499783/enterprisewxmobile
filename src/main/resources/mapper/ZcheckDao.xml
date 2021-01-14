@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gag.enterprisewxmobile.system.zcheck.dao.ZcheckDao">
+
+
+    <select id="selectZcheck" resultType="com.gag.enterprisewxmobile.system.zcheck.entity.Zcheck" statementType="CALLABLE">
+        exec [dbo].[zcheck]
+    </select>
+
+
+</mapper>

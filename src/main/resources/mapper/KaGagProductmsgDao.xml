@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gag.enterprisewxmobile.system.kaSystem.dao.KaGagProductmsgDao">
+
+    <resultMap type="com.gag.enterprisewxmobile.system.kaSystem.entity.KaGagProductmsg" id="KaGagProductmsgMap">
+        <result property="autoid" column="autoID" jdbcType="INTEGER"/>
+        <result property="articleNumber" column="article_number" jdbcType="VARCHAR"/>
+        <result property="msgProductName" column="msg_product_name" jdbcType="VARCHAR"/>
+        <result property="productName" column="product_name" jdbcType="VARCHAR"/>
+        <result property="expirationDate" column="expiration_date" jdbcType="VARCHAR"/>
+        <result property="category" column="category" jdbcType="VARCHAR"/>
+        <result property="brand" column="brand" jdbcType="VARCHAR"/>
+        <result property="sonBrand" column="son_brand" jdbcType="VARCHAR"/>
+        <result property="specification" column="specification" jdbcType="VARCHAR"/>
+        <result property="brandCategory" column="brand_category" jdbcType="VARCHAR"/>
+        <result property="retailGuide" column="retail_guide" jdbcType="VARCHAR"/>
+        <result property="generateState" column="generate_state" jdbcType="VARCHAR"/>
+        <result property="outerPackingMaterial" column="outer_packing_material" jdbcType="VARCHAR"/>
+        <result property="packSizeLength" column="pack_size_length" jdbcType="VARCHAR"/>
+        <result property="packSizeWide" column="pack_size_wide" jdbcType="VARCHAR"/>
+        <result property="packSizeHigh" column="pack_size_high" jdbcType="VARCHAR"/>
+        <result property="finishedSizeLength" column="finished_size_length" jdbcType="VARCHAR"/>
+        <result property="finishedSizeWide" column="finished_size_wide" jdbcType="VARCHAR"/>
+        <result property="finishedSizeHigh" column="finished_size_high" jdbcType="VARCHAR"/>
+        <result property="boxSizeLength" column="box_size_length" jdbcType="VARCHAR"/>
+        <result property="boxSizeWide" column="box_size_wide" jdbcType="VARCHAR"/>
+        <result property="boxSizeHigh" column="box_size_high" jdbcType="VARCHAR"/>
+        <result property="boxPackNumber" column="box_pack_number" jdbcType="VARCHAR"/>
+        <result property="boxCode" column="box_code" jdbcType="VARCHAR"/>
+        <result property="descriptionProducts" column="description_products" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="KaGagProductmsgMap">
+        select
+          autoID, article_number, msg_product_name, product_name, expiration_date, category, brand, son_brand, specification, brand_category, retail_guide, generate_state, outer_packing_material, pack_size_length, pack_size_wide, pack_size_high, finished_size_length, finished_size_wide, finished_size_high, box_size_length, box_size_wide, box_size_high, box_pack_number, box_code, description_products
+        from dbo.ka_GAG_productmsg
+        where autoID = #{autoid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="KaGagProductmsgMap">
+        select
+          autoID, article_number, msg_product_name, product_name, expiration_date, category, brand, son_brand, specification, brand_category, retail_guide, generate_state, outer_packing_material, pack_size_length, pack_size_wide, pack_size_high, finished_size_length, finished_size_wide, finished_size_high, box_size_length, box_size_wide, box_size_high, box_pack_number, box_code, description_products
+        from dbo.ka_GAG_productmsg
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="KaGagProductmsgMap">
+        select
+          autoID, article_number, msg_product_name, product_name, expiration_date, category, brand, son_brand, specification, brand_category, retail_guide, generate_state, outer_packing_material, pack_size_length, pack_size_wide, pack_size_high, finished_size_length, finished_size_wide, finished_size_high, box_size_length, box_size_wide, box_size_high, box_pack_number, box_code, description_products
+        from dbo.ka_GAG_productmsg
+        <where>
+            <if test="autoid != null">
+                and autoID = #{autoid}
+            </if>
+            <if test="articleNumber != null and articleNumber != ''">
+                and article_number = #{articleNumber}
+            </if>
+            <if test="msgProductName != null and msgProductName != ''">
+                and msg_product_name = #{msgProductName}
+            </if>
+            <if test="productName != null and productName != ''">
+                and product_name = #{productName}
+            </if>
+            <if test="expirationDate != null and expirationDate != ''">
+                and expiration_date = #{expirationDate}
+            </if>
+            <if test="category != null and category != ''">
+                and category = #{category}
+            </if>
+            <if test="brand != null and brand != ''">
+                and brand = #{brand}
+            </if>
+            <if test="sonBrand != null and sonBrand != ''">
+                and son_brand = #{sonBrand}
+            </if>
+            <if test="specification != null and specification != ''">
+                and specification = #{specification}
+            </if>
+            <if test="brandCategory != null and brandCategory != ''">
+                and brand_category = #{brandCategory}
+            </if>
+            <if test="retailGuide != null and retailGuide != ''">
+                and retail_guide = #{retailGuide}
+            </if>
+            <if test="generateState != null and generateState != ''">
+                and generate_state = #{generateState}
+            </if>
+            <if test="outerPackingMaterial != null and outerPackingMaterial != ''">
+                and outer_packing_material = #{outerPackingMaterial}
+            </if>
+            <if test="packSizeLength != null and packSizeLength != ''">
+                and pack_size_length = #{packSizeLength}
+            </if>
+            <if test="packSizeWide != null and packSizeWide != ''">
+                and pack_size_wide = #{packSizeWide}
+            </if>
+            <if test="packSizeHigh != null and packSizeHigh != ''">
+                and pack_size_high = #{packSizeHigh}
+            </if>
+            <if test="finishedSizeLength != null and finishedSizeLength != ''">
+                and finished_size_length = #{finishedSizeLength}
+            </if>
+            <if test="finishedSizeWide != null and finishedSizeWide != ''">
+                and finished_size_wide = #{finishedSizeWide}
+            </if>
+            <if test="finishedSizeHigh != null and finishedSizeHigh != ''">
+                and finished_size_high = #{finishedSizeHigh}
+            </if>
+            <if test="boxSizeLength != null and boxSizeLength != ''">
+                and box_size_length = #{boxSizeLength}
+            </if>
+            <if test="boxSizeWide != null and boxSizeWide != ''">
+                and box_size_wide = #{boxSizeWide}
+            </if>
+            <if test="boxSizeHigh != null and boxSizeHigh != ''">
+                and box_size_high = #{boxSizeHigh}
+            </if>
+            <if test="boxPackNumber != null and boxPackNumber != ''">
+                and box_pack_number = #{boxPackNumber}
+            </if>
+            <if test="boxCode != null and boxCode != ''">
+                and box_code = #{boxCode}
+            </if>
+            <if test="descriptionProducts != null and descriptionProducts != ''">
+                and description_products = #{descriptionProducts}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectmsg" resultType="java.lang.Integer">
+        select count(1) from ka_GAG_productmsg where article_number=#{articleNumber}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="autoid" useGeneratedKeys="true">
+        insert into dbo.ka_GAG_productmsg(article_number, msg_product_name, product_name, expiration_date, category, brand, son_brand, specification, brand_category, retail_guide, generate_state, outer_packing_material, pack_size_length, pack_size_wide, pack_size_high, finished_size_length, finished_size_wide, finished_size_high, box_size_length, box_size_wide, box_size_high, box_pack_number, box_code, description_products)
+        values (#{articleNumber}, #{msgProductName}, #{productName}, #{expirationDate}, #{category}, #{brand}, #{sonBrand}, #{specification}, #{brandCategory}, #{retailGuide}, #{generateState}, #{outerPackingMaterial}, #{packSizeLength}, #{packSizeWide}, #{packSizeHigh}, #{finishedSizeLength}, #{finishedSizeWide}, #{finishedSizeHigh}, #{boxSizeLength}, #{boxSizeWide}, #{boxSizeHigh}, #{boxPackNumber}, #{boxCode}, #{descriptionProducts})
+    </insert>
+
+    <insert id="insertmsg" parameterType="map">
+        insert into dbo.ka_GAG_productmsg(article_number, msg_product_name, product_name, expiration_date, category, brand, son_brand, specification, brand_category, retail_guide, generate_state, outer_packing_material, pack_size_length, pack_size_wide, pack_size_high, finished_size_length, finished_size_wide, finished_size_high, box_size_length, box_size_wide, box_size_high, box_pack_number, box_code, description_products)
+        values (#{article_number}, #{msg_product_name}, #{product_name}, #{expiration_date}, #{category}, #{brand}, #{son_brand}, #{specification}, #{brand_category}, #{retail_guide}, #{generate_state}, #{outer_packing_material}, #{pack_size_length}, #{pack_size_wide}, #{pack_size_high}, #{finished_size_length}, #{finished_size_wide}, #{finished_size_high}, #{box_size_length}, #{box_size_wide}, #{box_size_high}, #{box_pack_number}, #{box_code}, #{description_products})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update dbo.ka_GAG_productmsg
+        <set>
+            <if test="articleNumber != null and articleNumber != ''">
+                article_number = #{articleNumber},
+            </if>
+            <if test="msgProductName != null and msgProductName != ''">
+                msg_product_name = #{msgProductName},
+            </if>
+            <if test="productName != null and productName != ''">
+                product_name = #{productName},
+            </if>
+            <if test="expirationDate != null and expirationDate != ''">
+                expiration_date = #{expirationDate},
+            </if>
+            <if test="category != null and category != ''">
+                category = #{category},
+            </if>
+            <if test="brand != null and brand != ''">
+                brand = #{brand},
+            </if>
+            <if test="sonBrand != null and sonBrand != ''">
+                son_brand = #{sonBrand},
+            </if>
+            <if test="specification != null and specification != ''">
+                specification = #{specification},
+            </if>
+            <if test="brandCategory != null and brandCategory != ''">
+                brand_category = #{brandCategory},
+            </if>
+            <if test="retailGuide != null and retailGuide != ''">
+                retail_guide = #{retailGuide},
+            </if>
+            <if test="generateState != null and generateState != ''">
+                generate_state = #{generateState},
+            </if>
+            <if test="outerPackingMaterial != null and outerPackingMaterial != ''">
+                outer_packing_material = #{outerPackingMaterial},
+            </if>
+            <if test="packSizeLength != null and packSizeLength != ''">
+                pack_size_length = #{packSizeLength},
+            </if>
+            <if test="packSizeWide != null and packSizeWide != ''">
+                pack_size_wide = #{packSizeWide},
+            </if>
+            <if test="packSizeHigh != null and packSizeHigh != ''">
+                pack_size_high = #{packSizeHigh},
+            </if>
+            <if test="finishedSizeLength != null and finishedSizeLength != ''">
+                finished_size_length = #{finishedSizeLength},
+            </if>
+            <if test="finishedSizeWide != null and finishedSizeWide != ''">
+                finished_size_wide = #{finishedSizeWide},
+            </if>
+            <if test="finishedSizeHigh != null and finishedSizeHigh != ''">
+                finished_size_high = #{finishedSizeHigh},
+            </if>
+            <if test="boxSizeLength != null and boxSizeLength != ''">
+                box_size_length = #{boxSizeLength},
+            </if>
+            <if test="boxSizeWide != null and boxSizeWide != ''">
+                box_size_wide = #{boxSizeWide},
+            </if>
+            <if test="boxSizeHigh != null and boxSizeHigh != ''">
+                box_size_high = #{boxSizeHigh},
+            </if>
+            <if test="boxPackNumber != null and boxPackNumber != ''">
+                box_pack_number = #{boxPackNumber},
+            </if>
+            <if test="boxCode != null and boxCode != ''">
+                box_code = #{boxCode},
+            </if>
+            <if test="descriptionProducts != null and descriptionProducts != ''">
+                description_products = #{descriptionProducts},
+            </if>
+        </set>
+        where autoID = #{autoid}
+    </update>
+
+    <update id="updatemsg">
+        update dbo.ka_GAG_productmsg
+            set
+                msg_product_name = #{msg_product_name},
+                product_name = #{product_name},
+                expiration_date = #{expiration_date},
+                category = #{category},
+                son_brand = #{son_brand},
+                specification = #{specification},
+                brand_category = #{brand_category},
+                retail_guide = #{retail_guide},
+                generate_state = #{generate_state},
+                outer_packing_material = #{outer_packing_material},
+                pack_size_length = #{pack_size_length},
+                pack_size_wide = #{pack_size_wide},
+                pack_size_high = #{pack_size_high},
+                finished_size_length = #{finished_size_length},
+                finished_size_wide = #{finished_size_wide},
+                finished_size_high = #{finished_size_high},
+                box_size_length = #{box_size_length},
+                box_size_wide = #{box_size_wide},
+                box_size_high = #{box_size_high},
+                box_pack_number = #{box_pack_number},
+                box_code = #{box_code},
+                description_products = #{description_products}
+        where article_number=#{article_number}
+    </update>
+
+
+</mapper>

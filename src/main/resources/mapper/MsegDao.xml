@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gag.enterprisewxmobile.system.mseg.dao.MsegDao">
+
+    <resultMap type="com.gag.enterprisewxmobile.system.mseg.entity.Mseg" id="MsegMap">
+        <result property="autoid" column="AutoID" jdbcType="INTEGER"/>
+        <result property="mandt" column="MANDT" jdbcType="VARCHAR"/>
+        <result property="mblnr" column="MBLNR" jdbcType="VARCHAR"/>
+        <result property="mjahr" column="MJAHR" jdbcType="VARCHAR"/>
+        <result property="bwart" column="BWART" jdbcType="VARCHAR"/>
+        <result property="matnr" column="MATNR" jdbcType="VARCHAR"/>
+        <result property="insmk" column="INSMK" jdbcType="VARCHAR"/>
+        <result property="sobkz" column="SOBKZ" jdbcType="VARCHAR"/>
+        <result property="lifnr" column="LIFNR" jdbcType="VARCHAR"/>
+        <result property="kunnr" column="KUNNR" jdbcType="VARCHAR"/>
+        <result property="kdauf" column="KDAUF" jdbcType="VARCHAR"/>
+        <result property="shkzg" column="SHKZG" jdbcType="VARCHAR"/>
+        <result property="waers" column="WAERS" jdbcType="VARCHAR"/>
+        <result property="dmbtr" column="DMBTR" jdbcType="NUMERIC"/>
+        <result property="bnbtr" column="BNBTR" jdbcType="NUMERIC"/>
+        <result property="bualt" column="BUALT" jdbcType="NUMERIC"/>
+        <result property="shkum" column="SHKUM" jdbcType="VARCHAR"/>
+        <result property="meins" column="MEINS" jdbcType="VARCHAR"/>
+        <result property="erfmg" column="ERFMG" jdbcType="NUMERIC"/>
+        <result property="erfme" column="ERFME" jdbcType="VARCHAR"/>
+        <result property="bpmng" column="BPMNG" jdbcType="NUMERIC"/>
+        <result property="bprme" column="BPRME" jdbcType="VARCHAR"/>
+        <result property="ebeln" column="EBELN" jdbcType="VARCHAR"/>
+        <result property="ebelp" column="EBELP" jdbcType="VARCHAR"/>
+        <result property="lfbja" column="LFBJA" jdbcType="VARCHAR"/>
+        <result property="lfbnr" column="LFBNR" jdbcType="VARCHAR"/>
+        <result property="lfpos" column="LFPOS" jdbcType="VARCHAR"/>
+        <result property="sgtxt" column="SGTXT" jdbcType="VARCHAR"/>
+        <result property="wempf" column="WEMPF" jdbcType="VARCHAR"/>
+        <result property="ablad" column="ABLAD" jdbcType="VARCHAR"/>
+        <result property="parbu" column="PARBU" jdbcType="VARCHAR"/>
+        <result property="kostl" column="KOSTL" jdbcType="VARCHAR"/>
+        <result property="gjahr" column="GJAHR" jdbcType="VARCHAR"/>
+        <result property="bukrs" column="BUKRS" jdbcType="VARCHAR"/>
+        <result property="buzei" column="BUZEI" jdbcType="VARCHAR"/>
+        <result property="ummat" column="UMMAT" jdbcType="VARCHAR"/>
+        <result property="umwrk" column="UMWRK" jdbcType="VARCHAR"/>
+        <result property="umlgo" column="UMLGO" jdbcType="VARCHAR"/>
+        <result property="umcha" column="UMCHA" jdbcType="VARCHAR"/>
+        <result property="umsok" column="UMSOK" jdbcType="VARCHAR"/>
+        <result property="kzbew" column="KZBEW" jdbcType="VARCHAR"/>
+        <result property="kstrg" column="KSTRG" jdbcType="VARCHAR"/>
+        <result property="prctr" column="PRCTR" jdbcType="VARCHAR"/>
+        <result property="aufps" column="AUFPS" jdbcType="VARCHAR"/>
+        <result property="bstmg" column="BSTMG" jdbcType="NUMERIC"/>
+        <result property="bstme" column="BSTME" jdbcType="VARCHAR"/>
+        <result property="emlif" column="EMLIF" jdbcType="VARCHAR"/>
+        <result property="exbwr" column="EXBWR" jdbcType="NUMERIC"/>
+        <result property="vkwrt" column="VKWRT" jdbcType="NUMERIC"/>
+        <result property="xbeau" column="XBEAU" jdbcType="VARCHAR"/>
+        <result property="lsmng" column="LSMNG" jdbcType="NUMERIC"/>
+        <result property="lsmeh" column="LSMEH" jdbcType="VARCHAR"/>
+        <result property="kzbws" column="KZBWS" jdbcType="VARCHAR"/>
+        <result property="qinspst" column="QINSPST" jdbcType="VARCHAR"/>
+        <result property="urzei" column="URZEI" jdbcType="VARCHAR"/>
+        <result property="vgartMkpf" column="VGART_MKPF" jdbcType="VARCHAR"/>
+        <result property="budatMkpf" column="BUDAT_MKPF" jdbcType="TIMESTAMP"/>
+        <result property="cpudtMkpf" column="CPUDT_MKPF" jdbcType="TIMESTAMP"/>
+        <result property="cputmMkpf" column="CPUTM_MKPF" jdbcType="TIMESTAMP"/>
+        <result property="usnamMkpf" column="USNAM_MKPF" jdbcType="VARCHAR"/>
+        <result property="xblnrMkpf" column="XBLNR_MKPF" jdbcType="VARCHAR"/>
+        <result property="vbelnIm" column="VBELN_IM" jdbcType="VARCHAR"/>
+        <result property="vbelpIm" column="VBELP_IM" jdbcType="VARCHAR"/>
+        <result property="aufnr" column="AUFNR" jdbcType="VARCHAR"/>
+        <result property="menge" column="MENGE" jdbcType="NUMERIC"/>
+        <result property="werks" column="WERKS" jdbcType="VARCHAR"/>
+        <result property="lgort" column="LGORT" jdbcType="VARCHAR"/>
+        <result property="sakto" column="SAKTO" jdbcType="VARCHAR"/>
+        <result property="mark" column="MARK" jdbcType="INTEGER"/>
+        <result property="mid" column="MID" jdbcType="INTEGER"/>
+        <result property="iobilln" column="IOBILLN" jdbcType="VARCHAR"/>
+        <result property="iobill" column="IOBILL" jdbcType="VARCHAR"/>
+        <result property="msgbill" column="MSGBILL" jdbcType="VARCHAR"/>
+        <result property="msgbilln" column="MSGBILLN" jdbcType="VARCHAR"/>
+        <result property="msgmark" column="MSGMARK" jdbcType="INTEGER"/>
+        <result property="iotypen" column="IOTypeN" jdbcType="VARCHAR"/>
+        <result property="eventId" column="Event_ID" jdbcType="INTEGER"/>
+        <result property="tf" column="TF" jdbcType="INTEGER"/>
+        <result property="msgbillb" column="MSGBILLB" jdbcType="VARCHAR"/>
+        <result property="msgbillnb" column="MSGBILLNB" jdbcType="VARCHAR"/>
+        <result property="billtype" column="BillType" jdbcType="VARCHAR"/>
+        <result property="so" column="SO" jdbcType="VARCHAR"/>
+        <result property="smbln" column="SMBLN" jdbcType="VARCHAR"/>
+        <result property="smblp" column="SMBLP" jdbcType="VARCHAR"/>
+        <result property="username" column="UserName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <resultMap type="com.gag.enterprisewxmobile.system.kaSystem.entity.KaSystemTime" id="KaSystemTimes">
+        <result property="startTime"  column="StartTime"  jdbcType="VARCHAR" />
+        <result property="endTime"  column="EndTime" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--通过实体作为筛选条件查询-->
+
+
+    <select id="msegSystem" resultMap="MsegMap">
+        select * from [ECSarchive].[dbo].[mseg]
+        <where>
+            <choose>
+                <when test="startTime !=null and startTime !=''">
+                    BUDAT_MKPF &gt;= #{startTime}
+                </when>
+                <otherwise>
+                    BUDAT_MKPF &gt;= (select max(mseg.BUDAT_MKPF) from [ECSarchive].[dbo].[mseg])
+                </otherwise>
+            </choose>
+            <choose>
+                <when test="endTime !=null and endTime !=''">
+                    and CPUDT_MKPF &lt;= #{endTime}
+                </when>
+                <otherwise>
+                    and CPUDT_MKPF &lt;= (select max(mseg.CPUDT_MKPF) from [ECSarchive].[dbo].[mseg])
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+
+</mapper>

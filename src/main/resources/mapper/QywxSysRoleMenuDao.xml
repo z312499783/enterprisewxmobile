@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gag.enterprisewxmobile.system.user.dao.QywxSysRoleMenuDao">
+
+    <resultMap type="com.gag.enterprisewxmobile.system.user.entity.QywxSysRoleMenu" id="QywxSysRoleMenuMap">
+        <result property="roleId" column="role_id" jdbcType="INTEGER"/>
+        <result property="menuId" column="menu_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+
+    <select id="selectCountRoleMenuByMenuId" resultType="java.lang.Integer">
+        select count(1) from qywx_sys_role_menu where menu_id=#{menuId}
+    </select>
+
+    <insert id="batchRoleMenu">
+        insert into qywx_sys_role_menu(role_id, menu_id) values
+        <foreach item="item" index="index" collection="list" separator=",">
+            (#{item.roleId},#{item.menuId})
+        </foreach>
+    </insert>
+
+    <delete id="deleteRoleMenuByRoleId">
+        delete from qywx_sys_role_menu where role_id=#{roleId}
+    </delete>
+
+    <delete id="deleteRoleMenu">
+        delete from qywx_sys_role_menu where role_id in
+        <foreach collection="array" item="roleId" open="(" separator="," close=")">
+            #{roleId}
+        </foreach>
+    </delete>
+
+
+
+</mapper>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gag.enterprisewxmobile.system.MBEW.dao.MbewDao">
+
+    <resultMap type="com.gag.enterprisewxmobile.system.MBEW.entity.Mbew" id="MbewMap">
+        <result property="autoid" column="AutoID" jdbcType="INTEGER"/>
+        <result property="werks" column="WERKS" jdbcType="VARCHAR"/>
+        <result property="lgort" column="LGORT" jdbcType="VARCHAR"/>
+        <result property="matnr" column="MATNR" jdbcType="INTEGER"/>
+        <result property="menge1" column="MENGE1" jdbcType="NUMERIC"/>
+        <result property="money1" column="MONEY1" jdbcType="OTHER"/>
+        <result property="money2" column="MONEY2" jdbcType="OTHER"/>
+        <result property="dt" column="dt" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MbewMap">
+        select
+          AutoID, WERKS, LGORT, MATNR, MENGE1, MONEY1, MONEY2, dt
+        from dbo.MBEW
+        where AutoID = #{autoid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MbewMap">
+        select
+          AutoID, WERKS, LGORT, MATNR, MENGE1, MONEY1, MONEY2, dt
+        from dbo.MBEW
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MbewMap">
+        select
+          AutoID, WERKS, LGORT, MATNR, MENGE1, MONEY1, MONEY2, dt
+        from dbo.MBEW
+        <where>
+            <if test="autoid != null">
+                and AutoID = #{autoid}
+            </if>
+            <if test="werks != null and werks != ''">
+                and WERKS = #{werks}
+            </if>
+            <if test="lgort != null and lgort != ''">
+                and LGORT = #{lgort}
+            </if>
+            <if test="matnr != null">
+                and MATNR = #{matnr}
+            </if>
+            <if test="menge1 != null">
+                and MENGE1 = #{menge1}
+            </if>
+            <if test="money1 != null">
+                and MONEY1 = #{money1}
+            </if>
+            <if test="money2 != null">
+                and MONEY2 = #{money2}
+            </if>
+            <if test="dt != null and dt != ''">
+                and dt = #{dt}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="querysize" resultType="java.lang.Integer">
+        select count(0)
+        from dbo.MBEW
+        <where>
+            <if test="autoid != null">
+                and AutoID = #{autoid}
+            </if>
+            <if test="werks != null and werks != ''">
+                and WERKS = #{werks}
+            </if>
+            <if test="lgort != null and lgort != ''">
+                and LGORT = #{lgort}
+            </if>
+            <if test="matnr != null">
+                and MATNR = #{matnr}
+            </if>
+            <if test="menge1 != null">
+                and MENGE1 = #{menge1}
+            </if>
+            <if test="money1 != null">
+                and MONEY1 = #{money1}
+            </if>
+            <if test="money2 != null">
+                and MONEY2 = #{money2}
+            </if>
+            <if test="dt != null and dt != ''">
+                and convert(VARCHAR(10),dt,120) BETWEEN #{startdt} and #{dt}
+            </if>
+        </where>
+        and (MONEY1 > 0)
+    </select>
+
+    <select id="querymoney" resultMap="MbewMap">
+        select
+          AutoID, WERKS, MATNR, MONEY1, dt
+        from dbo.MBEW
+        <where>
+            <if test="autoid != null">
+                and AutoID = #{autoid}
+            </if>
+            <if test="werks != null and werks != ''">
+                and WERKS = #{werks}
+            </if>
+            <if test="matnr != null">
+                and MATNR = #{matnr}
+            </if>
+            <if test="money1 != null">
+                and MONEY1 = #{money1}
+            </if>
+            <if test="dt != null and dt != ''">
+                and convert(VARCHAR(10),dt,120) BETWEEN #{startdt} and #{dt}
+            </if>
+        </where>
+        and (MONEY1 > 0)
+        ORDER BY MONEY1 DESC
+    </select>
+
+    <select id="ekpoAndekko" resultType="java.lang.String">
+        EXEC [dbo].[wx_checkpo]
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="" useGeneratedKeys="true">
+        insert into dbo.MBEW(AutoID, WERKS, LGORT, MATNR, MENGE1, MONEY1, MONEY2, dt)
+        values (#{autoid}, #{werks}, #{lgort}, #{matnr}, #{menge1}, #{money1}, #{money2}, #{dt})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update dbo.MBEW
+        <set>
+            <if test="autoid != null">
+                AutoID = #{autoid},
+            </if>
+            <if test="werks != null and werks != ''">
+                WERKS = #{werks},
+            </if>
+            <if test="lgort != null and lgort != ''">
+                LGORT = #{lgort},
+            </if>
+            <if test="matnr != null">
+                MATNR = #{matnr},
+            </if>
+            <if test="menge1 != null">
+                MENGE1 = #{menge1},
+            </if>
+            <if test="money1 != null">
+                MONEY1 = #{money1},
+            </if>
+            <if test="money2 != null">
+                MONEY2 = #{money2},
+            </if>
+            <if test="dt != null and dt != ''">
+                dt = #{dt},
+            </if>
+        </set>
+        where AutoID = #{autoid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from dbo.MBEW where AutoID = #{autoid}
+    </delete>
+
+</mapper>

@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gag.enterprisewxmobile.system.MBEWS.dao.MbewsDao">
+
+    <resultMap type="com.gag.enterprisewxmobile.system.MBEWS.entity.Mbews" id="MbewsMap">
+        <result property="autoid" column="AutoID" jdbcType="INTEGER"/>
+        <result property="werks" column="WERKS" jdbcType="VARCHAR"/>
+        <result property="mtart" column="MTART" jdbcType="VARCHAR"/>
+        <result property="matnr" column="MATNR" jdbcType="VARCHAR"/>
+        <result property="txz01" column="TXZ01" jdbcType="VARCHAR"/>
+        <result property="extwg" column="EXTWG" jdbcType="VARCHAR"/>
+        <result property="meins" column="MEINS" jdbcType="VARCHAR"/>
+        <result property="menge1" column="MENGE1" jdbcType="OTHER"/>
+        <result property="money1" column="MONEY1" jdbcType="OTHER"/>
+        <result property="dt" column="dt" jdbcType="TIMESTAMP"/>
+        <result property="znc" column="ZNC" jdbcType="OTHER"/>
+        <result property="diff" column="DIFF" jdbcType="OTHER"/>
+        <result property="absm" column="ABSM" jdbcType="OTHER"/>
+        <result property="mark" column="MARK" jdbcType="INTEGER"/>
+        <result property="cnid" column="CNID" jdbcType="INTEGER"/>
+        <result property="swerks" column="SWERKS" jdbcType="VARCHAR"/>
+        <result property="eeind" column="EEIND" jdbcType="VARCHAR"/>
+        <result property="gstrp" column="GSTRP" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MbewsMap">
+        select
+          AutoID, WERKS, MTART, MATNR, TXZ01, EXTWG, MEINS, MENGE1, MONEY1, dt, ZNC, DIFF, ABSM, MARK, CNID, SWERKS, EEIND, GSTRP
+        from dbo.MBEWS
+        where AutoID = #{autoid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MbewsMap">
+        select
+          AutoID, WERKS, MTART, MATNR, TXZ01, EXTWG, MEINS, MENGE1, MONEY1, dt, ZNC, DIFF, ABSM, MARK, CNID, SWERKS, EEIND, GSTRP
+        from dbo.MBEWS
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MbewsMap">
+        select
+          AutoID, WERKS, MTART, MATNR, TXZ01, EXTWG, MEINS, MENGE1, MONEY1, dt, ZNC, DIFF, ABSM, MARK, CNID, SWERKS, EEIND, GSTRP
+        from dbo.MBEWS
+        <where>
+            <if test="autoid != null">
+                and AutoID = #{autoid}
+            </if>
+            <if test="werks != null and werks != ''">
+                and WERKS = #{werks}
+            </if>
+            <if test="mtart != null and mtart != ''">
+                and MTART = #{mtart}
+            </if>
+            <if test="matnr != null and matnr != ''">
+                and MATNR = #{matnr}
+            </if>
+            <if test="txz01 != null and txz01 != ''">
+                and TXZ01 = #{txz01}
+            </if>
+            <if test="extwg != null and extwg != ''">
+                and EXTWG = #{extwg}
+            </if>
+            <if test="meins != null and meins != ''">
+                and MEINS = #{meins}
+            </if>
+            <if test="menge1 != null">
+                and MENGE1 = #{menge1}
+            </if>
+            <if test="money1 != null">
+                and MONEY1 = #{money1}
+            </if>
+            <if test="dt != null">
+                and dt = #{dt}
+            </if>
+            <if test="znc != null">
+                and ZNC = #{znc}
+            </if>
+            <if test="diff != null">
+                and DIFF = #{diff}
+            </if>
+            <if test="absm != null">
+                and ABSM = #{absm}
+            </if>
+            <if test="mark != null">
+                and MARK = #{mark}
+            </if>
+            <if test="cnid != null">
+                and CNID = #{cnid}
+            </if>
+            <if test="swerks != null and swerks != ''">
+                and SWERKS = #{swerks}
+            </if>
+            <if test="eeind != null and eeind != ''">
+                and EEIND = #{eeind}
+            </if>
+            <if test="gstrp != null and gstrp != ''">
+                and GSTRP = #{gstrp}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryMbews" resultMap="MbewsMap">
+        SELECT
+            AutoID, WERKS, MTART, MATNR, TXZ01, EXTWG, MEINS, MENGE1, MONEY1, dt, ZNC, DIFF, ABSM, MARK, CNID, SWERKS, EEIND, GSTRP
+        FROM [ecs].[dbo].[MBEWS]
+        <where>
+            <if test="autoid != null">
+                and AutoID = #{autoid}
+            </if>
+            <if test="werks != null and werks != ''">
+                and WERKS = #{werks}
+            </if>
+            <if test="mtart != null and mtart != ''">
+                and MTART = #{mtart}
+            </if>
+            <if test="matnr != null and matnr != ''">
+                and MATNR = #{matnr}
+            </if>
+            <if test="txz01 != null and txz01 != ''">
+                and TXZ01 = #{txz01}
+            </if>
+            <if test="extwg != null and extwg != ''">
+                and EXTWG = #{extwg}
+            </if>
+            <if test="meins != null and meins != ''">
+                and MEINS = #{meins}
+            </if>
+            <if test="menge1 != null">
+                and MENGE1 = #{menge1}
+            </if>
+            <if test="money1 != null">
+                and MONEY1 = #{money1}
+            </if>
+            <if test="dt != null">
+                and dt = #{dt}
+            </if>
+            <if test="znc != null">
+                and ZNC = #{znc}
+            </if>
+            <if test="diff != null">
+                and DIFF = #{diff}
+            </if>
+            <if test="absm != null">
+                and ABSM = #{absm}
+            </if>
+            <if test="swerks != null and swerks != ''">
+                and SWERKS = #{swerks}
+            </if>
+            <if test="eeind != null and eeind != ''">
+                and EEIND = #{eeind}
+            </if>
+            <if test="gstrp != null and gstrp != ''">
+                and GSTRP = #{gstrp}
+            </if>
+        </where>
+    </select>
+
+    <select id="querysize" resultType="java.lang.Integer">
+        SELECT count(0)
+        FROM [ecs].[dbo].[MBEWS]
+        <where>
+            <if test="autoid != null">
+                and AutoID = #{autoid}
+            </if>
+            <if test="werks != null and werks != ''">
+                and WERKS = #{werks}
+            </if>
+            <if test="mtart != null and mtart != ''">
+                and MTART = #{mtart}
+            </if>
+            <if test="matnr != null and matnr != ''">
+                and MATNR = #{matnr}
+            </if>
+            <if test="txz01 != null and txz01 != ''">
+                and TXZ01 = #{txz01}
+            </if>
+            <if test="extwg != null and extwg != ''">
+                and EXTWG = #{extwg}
+            </if>
+            <if test="meins != null and meins != ''">
+                and MEINS = #{meins}
+            </if>
+            <if test="menge1 != null">
+                and MENGE1 = #{menge1}
+            </if>
+            <if test="money1 != null">
+                and MONEY1 = #{money1}
+            </if>
+            <if test="dt != null">
+                and dt = #{dt}
+            </if>
+            <if test="znc != null">
+                and ZNC = #{znc}
+            </if>
+            <if test="diff != null">
+                and DIFF = #{diff}
+            </if>
+            <if test="absm != null">
+                and ABSM = #{absm}
+            </if>
+            <if test="swerks != null and swerks != ''">
+                and SWERKS = #{swerks}
+            </if>
+            <if test="eeind != null and eeind != ''">
+                and EEIND = #{eeind}
+            </if>
+            <if test="gstrp != null and gstrp != ''">
+                and GSTRP = #{gstrp}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="" useGeneratedKeys="true">
+        insert into dbo.MBEWS(AutoID, WERKS, MTART, MATNR, TXZ01, EXTWG, MEINS, MENGE1, MONEY1, dt, ZNC, DIFF, ABSM, MARK, CNID, SWERKS, EEIND, GSTRP)
+        values (#{autoid}, #{werks}, #{mtart}, #{matnr}, #{txz01}, #{extwg}, #{meins}, #{menge1}, #{money1}, #{dt}, #{znc}, #{diff}, #{absm}, #{mark}, #{cnid}, #{swerks}, #{eeind}, #{gstrp})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update dbo.MBEWS
+        <set>
+            <if test="autoid != null">
+                AutoID = #{autoid},
+            </if>
+            <if test="werks != null and werks != ''">
+                WERKS = #{werks},
+            </if>
+            <if test="mtart != null and mtart != ''">
+                MTART = #{mtart},
+            </if>
+            <if test="matnr != null and matnr != ''">
+                MATNR = #{matnr},
+            </if>
+            <if test="txz01 != null and txz01 != ''">
+                TXZ01 = #{txz01},
+            </if>
+            <if test="extwg != null and extwg != ''">
+                EXTWG = #{extwg},
+            </if>
+            <if test="meins != null and meins != ''">
+                MEINS = #{meins},
+            </if>
+            <if test="menge1 != null">
+                MENGE1 = #{menge1},
+            </if>
+            <if test="money1 != null">
+                MONEY1 = #{money1},
+            </if>
+            <if test="dt != null">
+                dt = #{dt},
+            </if>
+            <if test="znc != null">
+                ZNC = #{znc},
+            </if>
+            <if test="diff != null">
+                DIFF = #{diff},
+            </if>
+            <if test="absm != null">
+                ABSM = #{absm},
+            </if>
+            <if test="mark != null">
+                MARK = #{mark},
+            </if>
+            <if test="cnid != null">
+                CNID = #{cnid},
+            </if>
+            <if test="swerks != null and swerks != ''">
+                SWERKS = #{swerks},
+            </if>
+            <if test="eeind != null and eeind != ''">
+                EEIND = #{eeind},
+            </if>
+            <if test="gstrp != null and gstrp != ''">
+                GSTRP = #{gstrp},
+            </if>
+        </set>
+        where AutoID = #{autoid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from dbo.MBEWS where AutoID = #{autoid}
+    </delete>
+
+</mapper>

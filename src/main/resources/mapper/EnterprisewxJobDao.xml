@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gag.enterprisewxmobile.monitor.job.dao.EnterprisewxJobDao">
+
+    <resultMap type="com.gag.enterprisewxmobile.monitor.job.entity.EnterprisewxJob" id="EnterprisewxJobMap">
+        <result property="jobId" column="job_id" jdbcType="INTEGER"/>
+        <result property="jobName" column="job_name" jdbcType="VARCHAR"/>
+        <result property="jobGroup" column="job_group" jdbcType="VARCHAR"/>
+        <result property="methodName" column="method_name" jdbcType="VARCHAR"/>
+        <result property="methodParams" column="method_params" jdbcType="VARCHAR"/>
+        <result property="cronExpression" column="cron_expression" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="EnterprisewxJobMap">
+        select
+          job_id, job_name, job_group, method_name, method_params, cron_expression, status, create_by, create_time, update_by, update_time, remark
+        from dbo.enterprisewx_job
+        where job_id = #{jobId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="EnterprisewxJobMap">
+        select
+          job_id, job_name, job_group, method_name, method_params, cron_expression, status, create_by, create_time, update_by, update_time, remark
+        from dbo.enterprisewx_job
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="EnterprisewxJobMap">
+        select
+          job_id, job_name, job_group, method_name, method_params, cron_expression, status, create_by, create_time, update_by, update_time, remark
+        from dbo.enterprisewx_job
+        <where>
+            <if test="jobId != null">
+                and job_id = #{jobId}
+            </if>
+            <if test="jobName != null and jobName != ''">
+                and job_name = #{jobName}
+            </if>
+            <if test="jobGroup != null and jobGroup != ''">
+                and job_group = #{jobGroup}
+            </if>
+            <if test="methodName != null and methodName != ''">
+                and method_name = #{methodName}
+            </if>
+            <if test="methodParams != null and methodParams != ''">
+                and method_params = #{methodParams}
+            </if>
+            <if test="cronExpression != null and cronExpression != ''">
+                and cron_expression = #{cronExpression}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+        </where>
+    </select>
+
+    <select id="querystatus" resultMap="EnterprisewxJobMap">
+        select
+         job_id, job_name, job_group, method_name, method_params, cron_expression, status, create_by, create_time, update_by, update_time, remark
+        from dbo.enterprisewx_job
+        where status = #{status}
+    </select>
+
+
+    <select id="queryjob" resultMap="EnterprisewxJobMap">
+        select
+         job_id, job_name, job_group, method_name, method_params, cron_expression, status, create_by, create_time, update_by, update_time, remark
+        from dbo.enterprisewx_job
+        where job_name = #{jobName} and method_name = #{methodName}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="jobId" useGeneratedKeys="true">
+        insert into dbo.enterprisewx_job(method_name, method_params, cron_expression, create_by, create_time, update_by, update_time, remark)
+        values (#{methodName}, #{methodParams}, #{cronExpression}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{remark})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update dbo.enterprisewx_job
+        <set>
+            <if test="methodName != null and methodName != ''">
+                method_name = #{methodName},
+            </if>
+            <if test="methodParams != null and methodParams != ''">
+                method_params = #{methodParams},
+            </if>
+            <if test="cronExpression != null and cronExpression != ''">
+                cron_expression = #{cronExpression},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            update_time = getdate()
+        </set>
+        where job_id = #{jobId}
+    </update>
+
+    <update id="updatejobstatus">
+        update dbo.enterprisewx_job set status = #{status} where job_id = #{jobId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from dbo.enterprisewx_job where job_id = #{jobId}
+    </delete>
+
+</mapper>

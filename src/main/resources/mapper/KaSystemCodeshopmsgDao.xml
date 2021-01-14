@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gag.enterprisewxmobile.system.kaSystem.dao.KaSystemCodeshopmsgDao">
+
+    <resultMap type="com.gag.enterprisewxmobile.system.kaSystem.entity.KaSystemCodeshopmsg" id="KaSystemCodeshopmsgMap">
+        <result property="autoid" column="autoID" jdbcType="INTEGER"/>
+        <result property="clientName" column="client_name" jdbcType="VARCHAR"/>
+        <result property="articleNumber" column="article_number" jdbcType="VARCHAR"/>
+        <result property="articleCode" column="article_code" jdbcType="VARCHAR"/>
+        <result property="customerProductName" column="customer_product_name" jdbcType="VARCHAR"/>
+        <result property="brand" column="brand" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="specification" column="specification" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="KaSystemCodeshopmsgMap">
+        select
+          autoID, client_name, article_number, article_code, customer_product_name, brand, name, specification
+        from dbo.ka_system_codeshopmsg
+        where autoID = #{autoid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="KaSystemCodeshopmsgMap">
+        select
+          autoID, client_name, article_number, article_code, customer_product_name, brand, name, specification
+        from dbo.ka_system_codeshopmsg
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="KaSystemCodeshopmsgMap">
+        select
+          autoID, client_name, article_number, article_code, customer_product_name, brand, name, specification
+        from dbo.ka_system_codeshopmsg
+        <where>
+            <if test="autoid != null">
+                and autoID = #{autoid}
+            </if>
+            <if test="clientName != null and clientName != ''">
+                and client_name = #{clientName}
+            </if>
+            <if test="articleNumber != null and articleNumber != ''">
+                and article_number = #{articleNumber}
+            </if>
+            <if test="articleCode != null and articleCode != ''">
+                and article_code = #{articleCode}
+            </if>
+            <if test="customerProductName != null and customerProductName != ''">
+                and customer_product_name = #{customerProductName}
+            </if>
+            <if test="brand != null and brand != ''">
+                and brand = #{brand}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="specification != null and specification != ''">
+                and specification = #{specification}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectmsg" resultType="java.lang.Integer">
+        select count(1) from ka_system_codeshopmsg where article_code=#{articleCode}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="autoid" useGeneratedKeys="true">
+        insert into dbo.ka_system_codeshopmsg(client_name, article_number, article_code, customer_product_name, brand, name, specification)
+        values (#{clientName}, #{articleNumber}, #{articleCode}, #{customerProductName}, #{brand}, #{name}, #{specification})
+    </insert>
+
+    <insert id="insertmsg" parameterType="map">
+        insert into dbo.ka_system_codeshopmsg(client_name, article_number, article_code, customer_product_name, brand, name, specification)
+        values (#{client_name}, #{article_number}, #{article_code}, #{customer_product_name}, #{brand}, #{name}, #{specification})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update dbo.ka_system_codeshopmsg
+        <set>
+            <if test="clientName != null and clientName != ''">
+                client_name = #{clientName},
+            </if>
+            <if test="articleNumber != null and articleNumber != ''">
+                article_number = #{articleNumber},
+            </if>
+            <if test="articleCode != null and articleCode != ''">
+                article_code = #{articleCode},
+            </if>
+            <if test="customerProductName != null and customerProductName != ''">
+                customer_product_name = #{customerProductName},
+            </if>
+            <if test="brand != null and brand != ''">
+                brand = #{brand},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="specification != null and specification != ''">
+                specification = #{specification},
+            </if>
+        </set>
+        where autoID = #{autoid}
+    </update>
+
+    <update id="updatemsg">
+        update ka_system_codeshopmsg set
+            client_name = #{client_name},
+            article_number= #{article_number},
+            customer_product_name = #{customer_product_name},
+            brand = #{brand},
+            name = #{name},
+            specification = #{specification}
+        where article_code = #{article_code}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from dbo.ka_system_codeshopmsg where autoID = #{autoid}
+    </delete>
+
+</mapper>

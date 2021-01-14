@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gag.enterprisewxmobile.system.controlTemplate.dao.ControltemplateDao">
+
+    <resultMap type="com.gag.enterprisewxmobile.system.controlTemplate.entity.Controltemplate" id="ControltemplateMap">
+        <result property="tableId" column="table_id" jdbcType="INTEGER"/>
+        <result property="spName" column="sp_name" jdbcType="VARCHAR"/>
+        <result property="templateId" column="template_id" jdbcType="VARCHAR"/>
+        <result property="approvalNum" column="approval_num" jdbcType="VARCHAR"/>
+        <result property="submitTime" column="submit_time" jdbcType="TIMESTAMP"/>
+        <result property="userid" column="userid" jdbcType="VARCHAR"/>
+        <result property="partyId" column="party_id" jdbcType="INTEGER"/>
+        <result property="spStatus" column="sp_status" jdbcType="INTEGER"/>
+        <result property="titleText" column="title_text" jdbcType="VARCHAR"/>
+        <result property="templateText" column="template_text" jdbcType="VARCHAR"/>
+        <result property="titleTextarea" column="title_textarea" jdbcType="VARCHAR"/>
+        <result property="templateTextarea" column="template_textarea" jdbcType="VARCHAR"/>
+        <result property="titleNumber" column="title_number" jdbcType="VARCHAR"/>
+        <result property="templateNumber" column="template_number" jdbcType="VARCHAR"/>
+        <result property="titleMoney" column="title_money" jdbcType="VARCHAR"/>
+        <result property="templateMoney" column="template_money" jdbcType="VARCHAR"/>
+        <result property="titleDate" column="title_date" jdbcType="VARCHAR"/>
+        <result property="templateDate" column="template_date" jdbcType="VARCHAR"/>
+        <result property="titleDatetime" column="title_datetime" jdbcType="VARCHAR"/>
+        <result property="templateDatetime" column="template_datetime" jdbcType="VARCHAR"/>
+        <result property="titleNewBegin" column="title_new_begin" jdbcType="VARCHAR"/>
+        <result property="templateNewBegin" column="template_new_begin" jdbcType="VARCHAR"/>
+        <result property="titleNewEnd" column="title_new_end" jdbcType="VARCHAR"/>
+        <result property="templateNewEnd" column="template_new_end" jdbcType="VARCHAR"/>
+        <result property="titleNewDuration" column="title_new_duration" jdbcType="VARCHAR"/>
+        <result property="templateNewDuration" column="template_new_duration" jdbcType="VARCHAR"/>
+        <result property="titleSelectorSingle" column="title_selector_single" jdbcType="VARCHAR"/>
+        <result property="templateSelectorSingle" column="template_selector_single" jdbcType="VARCHAR"/>
+        <result property="titleSelectorMulti" column="title_selector_multi" jdbcType="VARCHAR"/>
+        <result property="templateSelectorMulti" column="template_selector_multi" jdbcType="VARCHAR"/>
+        <result property="titleContactMember" column="title_contact_member" jdbcType="VARCHAR"/>
+        <result property="templateContactMember" column="template_contact_member" jdbcType="VARCHAR"/>
+        <result property="titleContactDepartment" column="title_contact_department" jdbcType="VARCHAR"/>
+        <result property="templateContactDepartment" column="template_contact_department" jdbcType="VARCHAR"/>
+        <result property="titleFile" column="title_file" jdbcType="VARCHAR"/>
+        <result property="templateFile" column="template_file" jdbcType="VARCHAR"/>
+        <result property="titleTips" column="title_tips" jdbcType="VARCHAR"/>
+        <result property="templateTips" column="template_tips" jdbcType="VARCHAR"/>
+        <result property="titleTable" column="title_table" jdbcType="VARCHAR"/>
+        <result property="templateTable" column="template_table" jdbcType="VARCHAR"/>
+        <result property="approver" column="approver" jdbcType="VARCHAR"/>
+        <result property="copyPerson" column="copy_person" jdbcType="VARCHAR"/>
+        <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ControltemplateMap">
+        select
+          table_id, sp_name, template_id, approval_num, submit_time, userid, party_id, sp_status, title_text, template_text, title_textarea, template_textarea, title_number, template_number, title_money, template_money, title_date, template_date, title_datetime, template_datetime, title_new_begin, template_new_begin, title_new_end, template_new_end, title_new_duration, template_new_duration, title_selector_single, template_selector_single, title_selector_multi, template_selector_multi, title_contact_member, template_contact_member, title_contact_department, template_contact_department, title_file, template_file, title_tips, template_tips, title_table, template_table, approver, copy_person, remarks
+        from dbo.controlTemplate
+        where table_id = #{tableId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ControltemplateMap">
+        select
+          table_id, sp_name, template_id, approval_num, submit_time, userid, party_id, sp_status, title_text, template_text, title_textarea, template_textarea, title_number, template_number, title_money, template_money, title_date, template_date, title_datetime, template_datetime, title_new_begin, template_new_begin, title_new_end, template_new_end, title_new_duration, template_new_duration, title_selector_single, template_selector_single, title_selector_multi, template_selector_multi, title_contact_member, template_contact_member, title_contact_department, template_contact_department, title_file, template_file, title_tips, template_tips, title_table, template_table, approver, copy_person, remarks
+        from dbo.controlTemplate
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="ControltemplateMap">
+        select
+          table_id, sp_name, template_id, approval_num, submit_time, userid, party_id, sp_status, title_text, template_text, title_textarea, template_textarea, title_number, template_number, title_money, template_money, title_date, template_date, title_datetime, template_datetime, title_new_begin, template_new_begin, title_new_end, template_new_end, title_new_duration, template_new_duration, title_selector_single, template_selector_single, title_selector_multi, template_selector_multi, title_contact_member, template_contact_member, title_contact_department, template_contact_department, title_file, template_file, title_tips, template_tips, title_table, template_table, approver, copy_person, remarks
+        from dbo.controlTemplate
+        <where>
+            <if test="tableId != null">
+                and table_id = #{tableId}
+            </if>
+            <if test="spName != null and spName != ''">
+                and sp_name = #{spName}
+            </if>
+            <if test="templateId != null and templateId != ''">
+                and template_id = #{templateId}
+            </if>
+            <if test="approvalNum != null and approvalNum != ''">
+                and approval_num = #{approvalNum}
+            </if>
+            <if test="submitTime != null">
+                and submit_time = #{submitTime}
+            </if>
+            <if test="userid != null and userid != ''">
+                and userid = #{userid}
+            </if>
+            <if test="partyId != null">
+                and party_id = #{partyId}
+            </if>
+            <if test="spStatus != null">
+                and sp_status = #{spStatus}
+            </if>
+            <if test="titleText != null and titleText != ''">
+                and title_text = #{titleText}
+            </if>
+            <if test="templateText != null and templateText != ''">
+                and template_text = #{templateText}
+            </if>
+            <if test="titleTextarea != null and titleTextarea != ''">
+                and title_textarea = #{titleTextarea}
+            </if>
+            <if test="templateTextarea != null and templateTextarea != ''">
+                and template_textarea = #{templateTextarea}
+            </if>
+            <if test="titleNumber != null and titleNumber != ''">
+                and title_number = #{titleNumber}
+            </if>
+            <if test="templateNumber != null and templateNumber != ''">
+                and template_number = #{templateNumber}
+            </if>
+            <if test="titleMoney != null and titleMoney != ''">
+                and title_money = #{titleMoney}
+            </if>
+            <if test="templateMoney != null and templateMoney != ''">
+                and template_money = #{templateMoney}
+            </if>
+            <if test="titleDate != null and titleDate != ''">
+                and title_date = #{titleDate}
+            </if>
+            <if test="templateDate != null and templateDate != ''">
+                and template_date = #{templateDate}
+            </if>
+            <if test="titleDatetime != null and titleDatetime != ''">
+                and title_datetime = #{titleDatetime}
+            </if>
+            <if test="templateDatetime != null and templateDatetime != ''">
+                and template_datetime = #{templateDatetime}
+            </if>
+            <if test="titleNewBegin != null and titleNewBegin != ''">
+                and title_new_begin = #{titleNewBegin}
+            </if>
+            <if test="templateNewBegin != null and templateNewBegin != ''">
+                and template_new_begin = #{templateNewBegin}
+            </if>
+            <if test="titleNewEnd != null and titleNewEnd != ''">
+                and title_new_end = #{titleNewEnd}
+            </if>
+            <if test="templateNewEnd != null and templateNewEnd != ''">
+                and template_new_end = #{templateNewEnd}
+            </if>
+            <if test="titleNewDuration != null and titleNewDuration != ''">
+                and title_new_duration = #{titleNewDuration}
+            </if>
+            <if test="templateNewDuration != null and templateNewDuration != ''">
+                and template_new_duration = #{templateNewDuration}
+            </if>
+            <if test="titleSelectorSingle != null and titleSelectorSingle != ''">
+                and title_selector_single = #{titleSelectorSingle}
+            </if>
+            <if test="templateSelectorSingle != null and templateSelectorSingle != ''">
+                and template_selector_single = #{templateSelectorSingle}
+            </if>
+            <if test="titleSelectorMulti != null and titleSelectorMulti != ''">
+                and title_selector_multi = #{titleSelectorMulti}
+            </if>
+            <if test="templateSelectorMulti != null and templateSelectorMulti != ''">
+                and template_selector_multi = #{templateSelectorMulti}
+            </if>
+            <if test="titleContactMember != null and titleContactMember != ''">
+                and title_contact_member = #{titleContactMember}
+            </if>
+            <if test="templateContactMember != null and templateContactMember != ''">
+                and template_contact_member = #{templateContactMember}
+            </if>
+            <if test="titleContactDepartment != null and titleContactDepartment != ''">
+                and title_contact_department = #{titleContactDepartment}
+            </if>
+            <if test="templateContactDepartment != null and templateContactDepartment != ''">
+                and template_contact_department = #{templateContactDepartment}
+            </if>
+            <if test="titleFile != null and titleFile != ''">
+                and title_file = #{titleFile}
+            </if>
+            <if test="templateFile != null and templateFile != ''">
+                and template_file = #{templateFile}
+            </if>
+            <if test="titleTips != null and titleTips != ''">
+                and title_tips = #{titleTips}
+            </if>
+            <if test="templateTips != null and templateTips != ''">
+                and template_tips = #{templateTips}
+            </if>
+            <if test="titleTable != null and titleTable != ''">
+                and title_table = #{titleTable}
+            </if>
+            <if test="templateTable != null and templateTable != ''">
+                and template_table = #{templateTable}
+            </if>
+            <if test="approver != null and approver != ''">
+                and approver = #{approver}
+            </if>
+            <if test="copyPerson != null and copyPerson != ''">
+                and copy_person = #{copyPerson}
+            </if>
+            <if test="remarks != null and remarks != ''">
+                and remarks = #{remarks}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="tableId" useGeneratedKeys="true">
+        insert into dbo.controlTemplate(sp_name, template_id, approval_num, submit_time, userid, party_id, sp_status, title_text, template_text, title_textarea, template_textarea, title_number, template_number, title_money, template_money, title_date, template_date, title_datetime, template_datetime, title_new_begin, template_new_begin, title_new_end, template_new_end, title_new_duration, template_new_duration, title_selector_single, template_selector_single, title_selector_multi, template_selector_multi, title_contact_member, template_contact_member, title_contact_department, template_contact_department, title_file, template_file, title_tips, template_tips, title_table, template_table, approver, copy_person, remarks)
+        values (#{spName}, #{templateId}, #{approvalNum}, #{submitTime}, #{userid}, #{partyId}, #{spStatus}, #{titleText}, #{templateText}, #{titleTextarea}, #{templateTextarea}, #{titleNumber}, #{templateNumber}, #{titleMoney}, #{templateMoney}, #{titleDate}, #{templateDate}, #{titleDatetime}, #{templateDatetime}, #{titleNewBegin}, #{templateNewBegin}, #{titleNewEnd}, #{templateNewEnd}, #{titleNewDuration}, #{templateNewDuration}, #{titleSelectorSingle}, #{templateSelectorSingle}, #{titleSelectorMulti}, #{templateSelectorMulti}, #{titleContactMember}, #{templateContactMember}, #{titleContactDepartment}, #{templateContactDepartment}, #{titleFile}, #{templateFile}, #{titleTips}, #{templateTips}, #{titleTable}, #{templateTable}, #{approver}, #{copyPerson}, #{remarks})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update dbo.controlTemplate
+        <set>
+            <if test="spName != null and spName != ''">
+                sp_name = #{spName},
+            </if>
+            <if test="templateId != null and templateId != ''">
+                template_id = #{templateId},
+            </if>
+            <if test="approvalNum != null and approvalNum != ''">
+                approval_num = #{approvalNum},
+            </if>
+            <if test="submitTime != null">
+                submit_time = #{submitTime},
+            </if>
+            <if test="userid != null and userid != ''">
+                userid = #{userid},
+            </if>
+            <if test="partyId != null">
+                party_id = #{partyId},
+            </if>
+            <if test="spStatus != null">
+                sp_status = #{spStatus},
+            </if>
+            <if test="titleText != null and titleText != ''">
+                title_text = #{titleText},
+            </if>
+            <if test="templateText != null and templateText != ''">
+                template_text = #{templateText},
+            </if>
+            <if test="titleTextarea != null and titleTextarea != ''">
+                title_textarea = #{titleTextarea},
+            </if>
+            <if test="templateTextarea != null and templateTextarea != ''">
+                template_textarea = #{templateTextarea},
+            </if>
+            <if test="titleNumber != null and titleNumber != ''">
+                title_number = #{titleNumber},
+            </if>
+            <if test="templateNumber != null and templateNumber != ''">
+                template_number = #{templateNumber},
+            </if>
+            <if test="titleMoney != null and titleMoney != ''">
+                title_money = #{titleMoney},
+            </if>
+            <if test="templateMoney != null and templateMoney != ''">
+                template_money = #{templateMoney},
+            </if>
+            <if test="titleDate != null and titleDate != ''">
+                title_date = #{titleDate},
+            </if>
+            <if test="templateDate != null and templateDate != ''">
+                template_date = #{templateDate},
+            </if>
+            <if test="titleDatetime != null and titleDatetime != ''">
+                title_datetime = #{titleDatetime},
+            </if>
+            <if test="templateDatetime != null and templateDatetime != ''">
+                template_datetime = #{templateDatetime},
+            </if>
+            <if test="titleNewBegin != null and titleNewBegin != ''">
+                title_new_begin = #{titleNewBegin},
+            </if>
+            <if test="templateNewBegin != null and templateNewBegin != ''">
+                template_new_begin = #{templateNewBegin},
+            </if>
+            <if test="titleNewEnd != null and titleNewEnd != ''">
+                title_new_end = #{titleNewEnd},
+            </if>
+            <if test="templateNewEnd != null and templateNewEnd != ''">
+                template_new_end = #{templateNewEnd},
+            </if>
+            <if test="titleNewDuration != null and titleNewDuration != ''">
+                title_new_duration = #{titleNewDuration},
+            </if>
+            <if test="templateNewDuration != null and templateNewDuration != ''">
+                template_new_duration = #{templateNewDuration},
+            </if>
+            <if test="titleSelectorSingle != null and titleSelectorSingle != ''">
+                title_selector_single = #{titleSelectorSingle},
+            </if>
+            <if test="templateSelectorSingle != null and templateSelectorSingle != ''">
+                template_selector_single = #{templateSelectorSingle},
+            </if>
+            <if test="titleSelectorMulti != null and titleSelectorMulti != ''">
+                title_selector_multi = #{titleSelectorMulti},
+            </if>
+            <if test="templateSelectorMulti != null and templateSelectorMulti != ''">
+                template_selector_multi = #{templateSelectorMulti},
+            </if>
+            <if test="titleContactMember != null and titleContactMember != ''">
+                title_contact_member = #{titleContactMember},
+            </if>
+            <if test="templateContactMember != null and templateContactMember != ''">
+                template_contact_member = #{templateContactMember},
+            </if>
+            <if test="titleContactDepartment != null and titleContactDepartment != ''">
+                title_contact_department = #{titleContactDepartment},
+            </if>
+            <if test="templateContactDepartment != null and templateContactDepartment != ''">
+                template_contact_department = #{templateContactDepartment},
+            </if>
+            <if test="titleFile != null and titleFile != ''">
+                title_file = #{titleFile},
+            </if>
+            <if test="templateFile != null and templateFile != ''">
+                template_file = #{templateFile},
+            </if>
+            <if test="titleTips != null and titleTips != ''">
+                title_tips = #{titleTips},
+            </if>
+            <if test="templateTips != null and templateTips != ''">
+                template_tips = #{templateTips},
+            </if>
+            <if test="titleTable != null and titleTable != ''">
+                title_table = #{titleTable},
+            </if>
+            <if test="templateTable != null and templateTable != ''">
+                template_table = #{templateTable},
+            </if>
+            <if test="approver != null and approver != ''">
+                approver = #{approver},
+            </if>
+            <if test="copyPerson != null and copyPerson != ''">
+                copy_person = #{copyPerson},
+            </if>
+            <if test="remarks != null and remarks != ''">
+                remarks = #{remarks},
+            </if>
+        </set>
+        where table_id = #{tableId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from dbo.controlTemplate where table_id = #{tableId}
+    </delete>
+
+</mapper>

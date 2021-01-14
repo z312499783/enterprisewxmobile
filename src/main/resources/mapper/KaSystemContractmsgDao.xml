@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gag.enterprisewxmobile.system.kaSystem.dao.KaSystemContractmsgDao">
+
+    <resultMap type="com.gag.enterprisewxmobile.system.kaSystem.entity.KaSystemContractmsg" id="KaSystemContractmsgMap">
+        <result property="autoid" column="autoID" jdbcType="INTEGER"/>
+        <result property="system" column="system" jdbcType="VARCHAR"/>
+        <result property="supplyFirm" column="supply_firm" jdbcType="VARCHAR"/>
+        <result property="contractType" column="contract_type" jdbcType="VARCHAR"/>
+        <result property="contractCode" column="contract_code" jdbcType="VARCHAR"/>
+        <result property="companySubject" column="company_subject" jdbcType="VARCHAR"/>
+        <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="KaSystemContractmsgMap">
+        select
+          autoID, system, supply_firm, contract_type, contract_code, company_subject, remarks
+        from dbo.ka_system_contractmsg
+        where autoID = #{autoid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="KaSystemContractmsgMap">
+        select
+          autoID, system, supply_firm, contract_type, contract_code, company_subject, remarks
+        from dbo.ka_system_contractmsg
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="KaSystemContractmsgMap">
+        select
+          autoID, system, supply_firm, contract_type, contract_code, company_subject, remarks
+        from dbo.ka_system_contractmsg
+        <where>
+            <if test="autoid != null">
+                and autoID = #{autoid}
+            </if>
+            <if test="system != null and system != ''">
+                and system = #{system}
+            </if>
+            <if test="supplyFirm != null and supplyFirm != ''">
+                and supply_firm = #{supplyFirm}
+            </if>
+            <if test="contractType != null and contractType != ''">
+                and contract_type = #{contractType}
+            </if>
+            <if test="contractCode != null and contractCode != ''">
+                and contract_code = #{contractCode}
+            </if>
+            <if test="companySubject != null and companySubject != ''">
+                and company_subject = #{companySubject}
+            </if>
+            <if test="remarks != null and remarks != ''">
+                and remarks = #{remarks}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectmsg" resultType="java.lang.Integer">
+        select count(1) from ka_system_contractmsg where contract_code = #{contractCode}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="autoid" useGeneratedKeys="true">
+        insert into dbo.ka_system_contractmsg(system, supply_firm, contract_type, contract_code, company_subject, remarks)
+        values (#{system}, #{supplyFirm}, #{contractType}, #{contractCode}, #{companySubject}, #{remarks})
+    </insert>
+
+
+    <insert id="insertmsg" parameterType="map">
+        insert into dbo.ka_system_contractmsg(system, supply_firm, contract_type, contract_code, company_subject, remarks)
+        values (#{system}, #{supply_firm}, #{contract_type}, #{contract_code}, #{company_subject}, #{remarks})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update dbo.ka_system_contractmsg
+        <set>
+            <if test="system != null and system != ''">
+                system = #{system},
+            </if>
+            <if test="supplyFirm != null and supplyFirm != ''">
+                supply_firm = #{supplyFirm},
+            </if>
+            <if test="contractType != null and contractType != ''">
+                contract_type = #{contractType},
+            </if>
+            <if test="contractCode != null and contractCode != ''">
+                contract_code = #{contractCode},
+            </if>
+            <if test="companySubject != null and companySubject != ''">
+                company_subject = #{companySubject},
+            </if>
+            <if test="remarks != null and remarks != ''">
+                remarks = #{remarks},
+            </if>
+        </set>
+        where autoID = #{autoid}
+    </update>
+
+    <update id="updatemsg" parameterType="java.util.Map">
+        update ka_system_contractmsg set
+            system = #{system},
+            supply_firm=#{supply_firm},
+            contract_type = #{contract_type},
+            company_subject = #{company_subject},
+            remarks = #{remarks}
+        where contract_code = #{contract_code}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from dbo.ka_system_contractmsg where autoID = #{autoid}
+    </delete>
+
+</mapper>

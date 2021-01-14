@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gag.enterprisewxmobile.system.kaSystem.dao.ShopPosDao">
+
+    <resultMap type="com.gag.enterprisewxmobile.system.kaSystem.entity.ShopPos" id="ShopPosMap">
+        <result property="autoid" column="autoID" jdbcType="INTEGER"/>
+        <result property="contractCode" column="contract_code" jdbcType="VARCHAR"/>
+        <result property="shopCode" column="shop_code" jdbcType="VARCHAR"/>
+        <result property="articleNumber" column="article_number" jdbcType="VARCHAR"/>
+        <result property="quantity" column="quantity" jdbcType="INTEGER"/>
+        <result property="unitPrice" column="unit_price" jdbcType="NUMERIC"/>
+        <result property="aggregateAmount" column="aggregate_amount" jdbcType="NUMERIC"/>
+        <result property="discountAmount" column="discount_amount" jdbcType="NUMERIC"/>
+        <result property="discountedAmount" column="discounted_amount" jdbcType="NUMERIC"/>
+        <result property="salesDate" column="sales_date" jdbcType="DATE"/>
+    </resultMap>
+
+    <resultMap type="com.gag.enterprisewxmobile.tool.gen.entity.ColumnInfo" id="ColumnInfoResult">
+        <id     property="columnName"     column="column_name"      />
+        <result property="dataType"       column="data_type"        />
+        <result property="columnComment"  column="column_comment"   />
+    </resultMap>
+
+    <resultMap type="com.gag.enterprisewxmobile.system.kaSystem.entity.KaSystemTime" id="KaSystemTimes">
+        <result property="startTime"  column="StartTime"  jdbcType="VARCHAR" />
+        <result property="endTime"  column="EndTime" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <select id="kaSystem" resultType="java.util.LinkedHashMap" statementType="CALLABLE">
+        EXEC [dbo].[KA_system_shop]
+        @StartTime = #{startTime},
+        @EndTime = #{endTime}
+    </select>
+
+    <select id="selectTableColumnsByName" resultMap="ColumnInfoResult">
+        EXEC [dbo].[KA_system_shopname]
+    </select>
+
+    <select id="selectmseg" resultType="java.util.LinkedHashMap">
+        select * from shop_pos
+        where sales_date
+            BETWEEN
+                <choose>
+                    <when test="params.beginTime!=null and params.beginTime !=''">
+                        #{params.beginTime}
+                    </when>
+                    <otherwise>
+                        (select CAST(MAX(sp.sales_date) as varchar(10)) from shop_pos as sp)
+                    </otherwise>
+                </choose>
+            and
+                <choose>
+                    <when test="params.endTime!=null and params.endTime !=''">
+                        #{params.endTime}
+                    </when>
+                    <otherwise>
+                        (select CAST(CAST(GETDATE() as date) as varchar(10)))
+                    </otherwise>
+                </choose>
+    </select>
+
+
+</mapper>

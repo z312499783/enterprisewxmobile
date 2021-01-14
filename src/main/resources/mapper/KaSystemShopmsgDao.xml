@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gag.enterprisewxmobile.system.kaSystem.dao.KaSystemShopmsgDao">
+
+    <resultMap type="com.gag.enterprisewxmobile.system.kaSystem.entity.KaSystemShopmsg" id="KaSystemShopmsgMap">
+        <result property="autoid" column="autoID" jdbcType="INTEGER"/>
+        <result property="shopCode" column="shop_code" jdbcType="VARCHAR"/>
+        <result property="managementGroup" column="management_group" jdbcType="VARCHAR"/>
+        <result property="province" column="province" jdbcType="VARCHAR"/>
+        <result property="city" column="city" jdbcType="VARCHAR"/>
+        <result property="district" column="district" jdbcType="VARCHAR"/>
+        <result property="administrativeBusiness" column="administrative_business" jdbcType="VARCHAR"/>
+        <result property="shopDepartment" column="shop_department" jdbcType="VARCHAR"/>
+        <result property="shopName" column="shop_name" jdbcType="VARCHAR"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
+        <result property="commercialActivities" column="commercial_activities" jdbcType="VARCHAR"/>
+        <result property="logistics" column="logistics" jdbcType="VARCHAR"/>
+        <result property="isnullGuide" column="isnull_guide" jdbcType="VARCHAR"/>
+        <result property="numberOfGuide" column="number_of_guide" jdbcType="VARCHAR"/>
+        <result property="shopMsg" column="shop_msg" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="KaSystemShopmsgMap">
+        select
+          autoID, shop_code, management_group, province, city, district, administrative_business, shop_department, shop_name, address, commercial_activities, logistics,isnull_guide, number_of_guide, shop_msg
+        from dbo.ka_system_shopmsg
+        where autoID = #{autoid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="KaSystemShopmsgMap">
+        select
+          autoID, shop_code, management_group, province, city, district, administrative_business, shop_department, shop_name, address, commercial_activities, logistics,isnull_guide, number_of_guide, shop_msg
+        from dbo.ka_system_shopmsg
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="KaSystemShopmsgMap">
+        select
+          autoID, shop_code, management_group, province, city, district, administrative_business, shop_department, shop_name, address, commercial_activities, logistics,isnull_guide, number_of_guide, shop_msg
+        from dbo.ka_system_shopmsg
+        <where>
+            <if test="autoid != null">
+                and autoID = #{autoid}
+            </if>
+            <if test="shopCode != null and shopCode != ''">
+                and shop_code = #{shopCode}
+            </if>
+            <if test="managementGroup != null and managementGroup != ''">
+                and management_group = #{managementGroup}
+            </if>
+            <if test="province != null and province != ''">
+                and province = #{province}
+            </if>
+            <if test="city != null and city != ''">
+                and city = #{city}
+            </if>
+            <if test="district != null and district != ''">
+                and district = #{district}
+            </if>
+            <if test="administrativeBusiness != null and administrativeBusiness != ''">
+                and administrative_business = #{administrativeBusiness}
+            </if>
+            <if test="shopDepartment != null and shopDepartment != ''">
+                and shop_department = #{shopDepartment}
+            </if>
+            <if test="shopName != null and shopName != ''">
+                and shop_name = #{shopName}
+            </if>
+            <if test="address != null and address != ''">
+                and address = #{address}
+            </if>
+            <if test="commercialActivities != null and commercialActivities != ''">
+                and commercial_activities = #{commercialActivities}
+            </if>
+            <if test="logistics != null and logistics != ''">
+                and logistics = #{logistics}
+            </if>
+            <if test="isnullGuide != null and isnullGuide != ''">
+                and isnull_guide = #{isnull_guide}
+            </if>
+            <if test="numberOfGuide != null and numberOfGuide != ''">
+                and number_of_guide = #{numberOfGuide}
+            </if>
+            <if test="shopMsg != null and shopMsg != ''">
+                and shop_msg = #{shopMsg}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectmsg" resultType="java.lang.Integer">
+        select count(1) from ka_system_shopmsg where shop_code = #{shopCode}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="autoid" useGeneratedKeys="true">
+        insert into dbo.ka_system_shopmsg(shop_code, management_group, province, city, district, administrative_business, shop_department, shop_name, address, commercial_activities, logistics,isnull_guide, number_of_guide, shop_msg)
+        values (#{shopCode}, #{managementGroup}, #{province}, #{city}, #{district}, #{administrativeBusiness}, #{shopDepartment}, #{shopName}, #{address}, #{commercialActivities}, #{logistics},#{isnullGuide} #{numberOfGuide}, #{shopMsg})
+    </insert>
+
+    <insert id="insertmsg" parameterType="map">
+        insert into dbo.ka_system_shopmsg(shop_code, management_group, province, city, district, administrative_business, shop_department, shop_name, address, commercial_activities, logistics,isnull_guide, number_of_guide, shop_msg)
+        values (#{shop_code}, #{management_group}, #{province}, #{city}, #{district}, #{administrative_business}, #{shop_department}, #{shop_name}, #{address}, #{commercial_activities}, #{logistics},#{isnull_guide}, #{number_of_guide}, #{shop_msg})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update dbo.ka_system_shopmsg
+        <set>
+            <if test="shopCode != null and shopCode != ''">
+                shop_code = #{shopCode},
+            </if>
+            <if test="managementGroup != null and managementGroup != ''">
+                management_group = #{managementGroup},
+            </if>
+            <if test="province != null and province != ''">
+                province = #{province},
+            </if>
+            <if test="city != null and city != ''">
+                city = #{city},
+            </if>
+            <if test="district != null and district != ''">
+                district = #{district},
+            </if>
+            <if test="administrativeBusiness != null and administrativeBusiness != ''">
+                administrative_business = #{administrativeBusiness},
+            </if>
+            <if test="shopDepartment != null and shopDepartment != ''">
+                shop_department = #{shopDepartment},
+            </if>
+            <if test="shopName != null and shopName != ''">
+                shop_name = #{shopName},
+            </if>
+            <if test="address != null and address != ''">
+                address = #{address},
+            </if>
+            <if test="commercialActivities != null and commercialActivities != ''">
+                commercial_activities = #{commercialActivities},
+            </if>
+            <if test="logistics != null and logistics != ''">
+                logistics = #{logistics},
+            </if>
+            <if test="numberOfGuide != null and numberOfGuide != ''">
+                number_of_guide = #{numberOfGuide},
+            </if>
+            <if test="shopMsg != null and shopMsg != ''">
+                shop_msg = #{shopMsg},
+            </if>
+        </set>
+        where autoID = #{autoid}
+    </update>
+
+    <update id="updatemsg">
+        update ka_system_shopmsg set
+            management_group = #{management_group},
+            province = #{province},
+            city = #{city},
+            district = #{district},
+            administrative_business = #{administrative_business},
+            shop_department = #{shop_department},
+            shop_name = #{shop_name},
+            address = #{address},
+            commercial_activities = #{commercial_activities},
+            logistics = #{logistics},
+            number_of_guide = #{number_of_guide},
+            shop_msg = #{shop_msg}
+        where shop_code = #{shop_code}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from dbo.ka_system_shopmsg where autoID = #{autoid}
+    </delete>
+
+</mapper>

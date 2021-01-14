@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gag.enterprisewxmobile.system.user.dao.QywxSysRoleDao">
+
+    <resultMap type="com.gag.enterprisewxmobile.system.user.entity.QywxSysRole" id="QywxSysRoleMap">
+        <result property="roleId" column="role_id" jdbcType="INTEGER"/>
+        <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
+        <result property="roleKey" column="role_key" jdbcType="VARCHAR"/>
+        <result property="roleSort" column="role_sort" jdbcType="VARCHAR"/>
+        <result property="dataScope" column="data_scope" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+        <result property="delFlag" column="del_flag" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="selectRoleContactVo">
+        select distinct r.role_id, r.role_name, r.role_key, r.role_sort, r.data_scope,
+            r.status, r.del_flag, r.create_time, r.remark
+        from qywx_sys_role r
+	        left join qywx_sys_user_role ur on ur.role_id = r.role_id
+	        left join qywx_sys_user u on u.userid = ur.user_id
+	        left join qywx_sys_party d on u.department = d.id;
+    </sql>
+
+    <sql id="selectRoleVo">
+		select r.role_id, r.role_name, r.role_key, r.role_sort, r.data_scope, r.status, r.del_flag, r.create_time, r.remark
+        from qywx_sys_role r
+	</sql>
+
+
+    <insert id="insertRole">
+        insert into qywx_sys_role(
+        <if test="roleId != null and roleId != 0">role_id,</if>
+        <if test="roleName != null and roleName != ''">role_name,</if>
+        <if test="roleKey != null and roleKey != ''">role_key,</if>
+        <if test="roleSort != null and roleSort != ''">role_sort,</if>
+        <if test="dataScope != null and dataScope != ''">data_scope,</if>
+        <if test="status != null and status != ''">status,</if>
+        <if test="remark != null and remark != ''">remark,</if>
+        <if test="createBy != null and createBy != ''">create_by,</if>
+        create_time
+        )values(
+        <if test="roleId != null and roleId != 0">#{roleId},</if>
+        <if test="roleName != null and roleName != ''">#{roleName},</if>
+        <if test="roleKey != null and roleKey != ''">#{roleKey},</if>
+        <if test="roleSort != null and roleSort != ''">#{roleSort},</if>
+        <if test="dataScope != null and dataScope != ''">#{dataScope},</if>
+        <if test="status != null and status != ''">#{status},</if>
+        <if test="remark != null and remark != ''">#{remark},</if>
+        <if test="createBy != null and createBy != ''">#{createBy},</if>
+        GETDATE()
+        )
+    </insert>
+
+
+    <select id="selectRoleList" parameterType="com.gag.enterprisewxmobile.system.user.entity.QywxSysRole" resultMap="QywxSysRoleMap">
+        <include refid="selectRoleContactVo"/>
+        where r.del_flag = '0'
+        <if test="roleName !=null and roleName != ''">
+            <bind name="bindroleName" value="'%'+roleName+'%'"/>
+            AND r.role_name like #{bindroleName}
+        </if>
+        <if test="status !=null and status != ''">
+            AND r.status = #{status}
+        </if>
+        <if test="roleKey != null and roleKey != ''">
+            <bind name="bindroleKey" value="'%'+role_key+'%'"/>
+            AND r.role_key like #{bindroleKey}
+        </if>
+        <if test="dataScope != null and dataScope != ''">
+            AND r.data_scope = #{dataScope}
+        </if>
+    </select>
+
+    <select id="selectRolesByUserId" resultMap="QywxSysRoleMap">
+        <include refid="selectRoleContactVo"/>
+        where r.del_flag = '0' and ur.user_id = #{userId}
+    </select>
+
+    <select id="selectRoleById" resultMap="QywxSysRoleMap">
+        <include refid="selectRoleVo"/>
+        where r.del_flag = '0' and r.role_id = #{roleId}
+    </select>
+
+    <select id="checkRoleNameUnique" resultMap="QywxSysRoleMap">
+        <include refid="selectRoleVo"/>
+        where r.role_name=#{roleName}
+    </select>
+
+    <select id="checkRoleKeyUnique" resultMap="QywxSysRoleMap">
+        <include refid="selectRoleVo"/>
+        where r.role_key=#{roleKey}
+    </select>
+
+    <select id="selectRolekey" resultType="java.lang.String">
+        select qsr.role_key
+        from
+	        qywx_sys_user qsu
+        LEFT JOIN qywx_sys_user_role qsur on qsu.usermsg_id = qsur.role_id
+        LEFT JOIN qywx_sys_role qsr on qsur.role_id = qsr.role_id
+        where
+	        qsu.userid=#{userid}
+    </select>
+
+
+    <update id="updateRole">
+        update qywx_sys_role
+        <set>
+            <if test="roleName != null and roleName != ''">role_name = #{roleName},</if>
+            <if test="roleKey != null and roleKey != ''">role_key = #{roleKey},</if>
+            <if test="roleSort != null and roleSort != ''">role_sort = #{roleSort},</if>
+            <if test="dataScope != null and dataScope != ''">data_scope = #{dataScope},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            update_time = GETDATE()
+        </set>
+        where role_id = #{roleId}
+    </update>
+
+    <delete id="deleteRoleById">
+        delete from qywx_sys_role where role_id = #{roleId}
+    </delete>
+
+    <delete id="deleteRoleByIds" parameterType="int">
+        update qywx_sys_role set del_flag = '2' where role_id in
+        <foreach collection="array" item="roleId" open="(" separator="," close=")">
+            #{roleId}
+        </foreach>
+    </delete>
+
+</mapper>

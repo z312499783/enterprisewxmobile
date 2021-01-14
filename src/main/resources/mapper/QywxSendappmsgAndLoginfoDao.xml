@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gag.enterprisewxmobile.system.sendAppMsg.dao.QywxSendappmsgAndLoginfoDao">
+
+    <resultMap type="com.gag.enterprisewxmobile.system.sendAppMsg.entity.QywxSendappmsgAndLoginfo" id="QywxSendappmsgAndLoginfoMap">
+        <result property="msgAndLoginfoId" column="msg_and_loginfo_id" jdbcType="INTEGER"/>
+        <result property="sendappmsgId" column="SendAppMsg_id" jdbcType="INTEGER"/>
+        <result property="loginfoId" column="loginfo_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="QywxSendappmsgAndLoginfoMap">
+        select
+          msg_and_loginfo_id, SendAppMsg_id, loginfo_id
+        from dbo.qywx_SendAppMsg_AND_Loginfo
+        where msg_and_loginfo_id = #{msgAndLoginfoId}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="QywxSendappmsgAndLoginfoMap">
+        select
+          msg_and_loginfo_id, SendAppMsg_id, loginfo_id
+        from dbo.qywx_SendAppMsg_AND_Loginfo
+        <where>
+            <if test="msgAndLoginfoId != null">
+                and msg_and_loginfo_id = #{msgAndLoginfoId}
+            </if>
+            <if test="sendappmsgId != null">
+                and SendAppMsg_id = #{sendappmsgId}
+            </if>
+            <if test="loginfoId != null">
+                and loginfo_id = #{loginfoId}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="msgAndLoginfoId" useGeneratedKeys="true">
+        insert into dbo.qywx_SendAppMsg_AND_Loginfo(SendAppMsg_id, loginfo_id)
+        values (#{sendappmsgId}, #{loginfoId})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update dbo.qywx_SendAppMsg_AND_Loginfo
+        <set>
+            <if test="sendappmsgId != null">
+                SendAppMsg_id = #{sendappmsgId},
+            </if>
+            <if test="loginfoId != null">
+                loginfo_id = #{loginfoId},
+            </if>
+        </set>
+        where msg_and_loginfo_id = #{msgAndLoginfoId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from dbo.qywx_SendAppMsg_AND_Loginfo where msg_and_loginfo_id = #{msgAndLoginfoId}
+    </delete>
+
+</mapper>

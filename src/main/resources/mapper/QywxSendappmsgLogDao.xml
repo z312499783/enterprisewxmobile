@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gag.enterprisewxmobile.system.sendAppMsg.dao.QywxSendappmsgLogDao">
+
+    <resultMap type="com.gag.enterprisewxmobile.system.sendAppMsg.entity.QywxSendappmsgLog" id="QywxSendappmsgLogMap">
+        <result property="jobLogId" column="job_log_id" jdbcType="INTEGER"/>
+        <result property="jobName" column="job_name" jdbcType="VARCHAR"/>
+        <result property="jobGroup" column="job_group" jdbcType="VARCHAR"/>
+        <result property="methodName" column="method_name" jdbcType="VARCHAR"/>
+        <result property="methodParams" column="method_params" jdbcType="VARCHAR"/>
+        <result property="jobMessage" column="job_message" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+        <result property="exceptionInfo" column="exception_info" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="QywxSendappmsgLogMap">
+        select
+          job_log_id, job_name, job_group, method_name, method_params, job_message, status, exception_info, create_time
+        from dbo.qywx_SendAppMsg_log
+        where job_log_id = #{jobLogId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="QywxSendappmsgLogMap">
+        select
+          job_log_id, job_name, job_group, method_name, method_params, job_message, status, exception_info, create_time
+        from dbo.qywx_SendAppMsg_log
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="QywxSendappmsgLogMap">
+        select
+          job_log_id, job_name, job_group, method_name, method_params, job_message, status, exception_info, create_time
+        from dbo.qywx_SendAppMsg_log
+        <where>
+            <if test="jobLogId != null">
+                and job_log_id = #{jobLogId}
+            </if>
+            <if test="jobName != null and jobName != ''">
+                and job_name = #{jobName}
+            </if>
+            <if test="jobGroup != null and jobGroup != ''">
+                and job_group = #{jobGroup}
+            </if>
+            <if test="methodName != null and methodName != ''">
+                and method_name = #{methodName}
+            </if>
+            <if test="methodParams != null and methodParams != ''">
+                and method_params = #{methodParams}
+            </if>
+            <if test="jobMessage != null and jobMessage != ''">
+                and job_message = #{jobMessage}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="exceptionInfo != null and exceptionInfo != ''">
+                and exception_info = #{exceptionInfo}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="jobLogId" useGeneratedKeys="true">
+        insert into dbo.qywx_SendAppMsg_log(job_name, job_group, method_name, method_params, job_message, status, exception_info, create_time)
+        values (#{jobName}, #{jobGroup}, #{methodName}, #{methodParams}, #{jobMessage}, #{status}, #{exceptionInfo}, #{createTime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update dbo.qywx_SendAppMsg_log
+        <set>
+            <if test="jobName != null and jobName != ''">
+                job_name = #{jobName},
+            </if>
+            <if test="jobGroup != null and jobGroup != ''">
+                job_group = #{jobGroup},
+            </if>
+            <if test="methodName != null and methodName != ''">
+                method_name = #{methodName},
+            </if>
+            <if test="methodParams != null and methodParams != ''">
+                method_params = #{methodParams},
+            </if>
+            <if test="jobMessage != null and jobMessage != ''">
+                job_message = #{jobMessage},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+            <if test="exceptionInfo != null and exceptionInfo != ''">
+                exception_info = #{exceptionInfo},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+        </set>
+        where job_log_id = #{jobLogId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from dbo.qywx_SendAppMsg_log where job_log_id = #{jobLogId}
+    </delete>
+
+</mapper>

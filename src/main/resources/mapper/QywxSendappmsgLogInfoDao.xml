@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gag.enterprisewxmobile.system.sendAppMsg.dao.QywxSendappmsgLogInfoDao">
+
+    <resultMap type="com.gag.enterprisewxmobile.system.sendAppMsg.entity.QywxSendappmsgLogInfo" id="QywxSendappmsgLogInfoMap">
+        <result property="jobLogInfoId" column="job_log_info_id" jdbcType="INTEGER"/>
+        <result property="jobInfoName" column="job_info_name" jdbcType="VARCHAR"/>
+        <result property="jobInfoGroup" column="job_info_group" jdbcType="VARCHAR"/>
+        <result property="methodInfoName" column="method_info_name" jdbcType="VARCHAR"/>
+        <result property="methodInfoParams" column="method_info_params" jdbcType="VARCHAR"/>
+        <result property="jobInfoMessage" column="job_info_message" jdbcType="VARCHAR"/>
+        <result property="infoStatus" column="info_status" jdbcType="VARCHAR"/>
+        <result property="infoExceptionInfo" column="info_exception_info" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="QywxSendappmsgLogInfoMap">
+        select
+          job_log_info_id, job_info_name, job_info_group, method_info_name, method_info_params, job_info_message, info_status, info_exception_info
+        from dbo.qywx_SendAppMsg_log_info
+        where job_log_info_id = #{jobLogInfoId}
+    </select>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="QywxSendappmsgLogInfoMap">
+        select
+          job_log_info_id, job_info_name, job_info_group, method_info_name, method_info_params, job_info_message, info_status, info_exception_info
+        from dbo.qywx_SendAppMsg_log_info
+        <where>
+            <if test="jobLogInfoId != null">
+                and job_log_info_id = #{jobLogInfoId}
+            </if>
+            <if test="jobInfoName != null and jobInfoName != ''">
+                and job_info_name = #{jobInfoName}
+            </if>
+            <if test="jobInfoGroup != null and jobInfoGroup != ''">
+                and job_info_group = #{jobInfoGroup}
+            </if>
+            <if test="methodInfoName != null and methodInfoName != ''">
+                and method_info_name = #{methodInfoName}
+            </if>
+            <if test="methodInfoParams != null and methodInfoParams != ''">
+                and method_info_params = #{methodInfoParams}
+            </if>
+            <if test="jobInfoMessage != null and jobInfoMessage != ''">
+                and job_info_message = #{jobInfoMessage}
+            </if>
+            <if test="infoStatus != null and infoStatus != ''">
+                and info_status = #{infoStatus}
+            </if>
+            <if test="infoExceptionInfo != null and infoExceptionInfo != ''">
+                and info_exception_info = #{infoExceptionInfo}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="jobLogInfoId" useGeneratedKeys="true">
+        insert into dbo.qywx_SendAppMsg_log_info(job_info_name, job_info_group, method_info_name, method_info_params, job_info_message, info_status, info_exception_info)
+        values (#{jobInfoName}, #{jobInfoGroup}, #{methodInfoName}, #{methodInfoParams}, #{jobInfoMessage}, #{infoStatus}, #{infoExceptionInfo})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update dbo.qywx_SendAppMsg_log_info
+        <set>
+            <if test="jobInfoName != null and jobInfoName != ''">
+                job_info_name = #{jobInfoName},
+            </if>
+            <if test="jobInfoGroup != null and jobInfoGroup != ''">
+                job_info_group = #{jobInfoGroup},
+            </if>
+            <if test="methodInfoName != null and methodInfoName != ''">
+                method_info_name = #{methodInfoName},
+            </if>
+            <if test="methodInfoParams != null and methodInfoParams != ''">
+                method_info_params = #{methodInfoParams},
+            </if>
+            <if test="jobInfoMessage != null and jobInfoMessage != ''">
+                job_info_message = #{jobInfoMessage},
+            </if>
+            <if test="infoStatus != null and infoStatus != ''">
+                info_status = #{infoStatus},
+            </if>
+            <if test="infoExceptionInfo != null and infoExceptionInfo != ''">
+                info_exception_info = #{infoExceptionInfo},
+            </if>
+        </set>
+        where job_log_info_id = #{jobLogInfoId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from dbo.qywx_SendAppMsg_log_info where job_log_info_id = #{jobLogInfoId}
+    </delete>
+
+</mapper>

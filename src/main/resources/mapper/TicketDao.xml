@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gag.enterprisewxmobile.system.ticket.dao.TicketDao">
+
+    <resultMap type="com.gag.enterprisewxmobile.system.ticket.entity.Ticket" id="TicketMap">
+        <result property="ticketId" column="ticket_id" jdbcType="INTEGER"/>
+        <result property="agentidNum" column="agentId_num" jdbcType="VARCHAR"/>
+        <result property="ticket" column="ticket" jdbcType="VARCHAR"/>
+        <result property="expiresIn" column="expires_in" jdbcType="INTEGER"/>
+        <result property="startTime" column="start_time" jdbcType="TIMESTAMP"/>
+        <result property="endTime" column="end_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TicketMap">
+        select
+          ticket_id, agentId_num, ticket, expires_in, start_time, end_time
+        from dbo.ticket
+        where ticket_id = #{ticketId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TicketMap">
+        select
+          ticket_id, agentId_num, ticket, expires_in, start_time, end_time
+        from dbo.ticket
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="TicketMap">
+        select
+          ticket_id, agentId_num, ticket, expires_in, start_time, end_time
+        from dbo.ticket
+        <where>
+            <if test="ticketId != null">
+                and ticket_id = #{ticketId}
+            </if>
+            <if test="agentidNum != null and agentidNum != ''">
+                and agentId_num = #{agentidNum}
+            </if>
+            <if test="ticket != null and ticket != ''">
+                and ticket = #{ticket}
+            </if>
+            <if test="expiresIn != null">
+                and expires_in = #{expiresIn}
+            </if>
+            <if test="startTime != null">
+                and start_time = #{startTime}
+            </if>
+            <if test="endTime != null">
+                and end_time = #{endTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryTicket" resultType="java.lang.String">
+        select ticket from dbo.ticket where agentId_num = #{agentidNum}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="ticketId" useGeneratedKeys="true">
+        insert into dbo.ticket(agentId_num, ticket, expires_in, start_time, end_time)
+        values (#{agentidNum}, #{ticket}, #{expiresIn}, #{startTime}, #{endTime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update dbo.ticket
+        <set>
+            <if test="ticket != null and ticket != ''">
+                ticket = #{ticket},
+            </if>
+            <if test="expiresIn != null">
+                expires_in = #{expiresIn},
+            </if>
+            <if test="startTime != null">
+                start_time = #{startTime},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime},
+            </if>
+        </set>
+        where agentId_num = #{agentidNum}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from dbo.ticket where ticket_id = #{ticketId}
+    </delete>
+
+</mapper>
