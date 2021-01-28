@@ -8,8 +8,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import static com.gag.enterprisewxmobile.tool.common.JSONResult.success;
 
@@ -39,10 +42,10 @@ public class ShopPosLogController extends BaseController {
     @GetMapping("select")
     @RequiresPermissions("shopPosLog:select")
     @ApiOperation(value = "查询操作日志",notes = "根据日志类对象查询日志",httpMethod = "GET",response = JSONResult.class)
-    public JSONResult queryAll(ShopPosLog shopPosLog){
+    public JSONResult select(ShopPosLog shopPosLog){
         startPage();
         List<ShopPosLog> list = this.shopPosLogService.queryAll(shopPosLog);
-        return success(list);
+        return JSONResult.tablePageLayui(list);
     };
 
 }

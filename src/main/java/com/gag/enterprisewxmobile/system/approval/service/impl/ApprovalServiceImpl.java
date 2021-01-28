@@ -30,7 +30,6 @@ public class ApprovalServiceImpl implements ApprovalService {
      * @param agentid
      * @return
      */
-    @Cacheable(key = "#agentid+'queryAccessToken'")
     @Override
     public String queryAccessToken(String agentid){
         return this.approvalDao.queryAccessToken(agentid);
@@ -41,7 +40,6 @@ public class ApprovalServiceImpl implements ApprovalService {
      * @param agentid
      * @return
      */
-    @Cacheable(key = "#agentid+'queryAgentid'")
     @Override
     public Approval queryAgentid(String agentid){
         return this.approvalDao.queryAgentid(agentid);
@@ -66,7 +64,6 @@ public class ApprovalServiceImpl implements ApprovalService {
      * @param approvalId 主键
      * @return 实例对象
      */
-    @Cacheable(key = "#approvalId")
     @Override
     public Approval queryById(Integer approvalId) {
         return this.approvalDao.queryById(approvalId);
@@ -105,7 +102,7 @@ public class ApprovalServiceImpl implements ApprovalService {
      * @param approvalId 主键
      * @return 是否成功
      */
-    @CacheEvict(key = "#approvalId")
+    @CacheEvict(key = "#root.targetClass.typeName")
     @Override
     public boolean deleteById(Integer approvalId) {
         return this.approvalDao.deleteById(approvalId) > 0;

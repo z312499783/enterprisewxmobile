@@ -4,12 +4,16 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.gag.enterprisewxmobile.system.approval.entity.Approval;
 import com.gag.enterprisewxmobile.system.approval.service.ApprovalService;
+import com.gag.enterprisewxmobile.system.user.entity.QywxSysUser;
 import com.gag.enterprisewxmobile.system.user.entity.Usermsg;
+import com.gag.enterprisewxmobile.system.user.service.QywxSysUserService;
 import com.gag.enterprisewxmobile.system.user.service.UsermsgService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.List;
+
+import static com.gag.enterprisewxmobile.tool.common.ShiroUtils.getSysUser;
 
 @Slf4j
 @Component(value = "WeChatUserMsgUtils")
@@ -22,7 +26,7 @@ public class WeChatUserMsgUtils {
     private ApprovalService approvalService;
 
     @Resource
-    private UsermsgService usermsgService;
+    private QywxSysUserService qywxSysUserService;
 
 
     public void ExamineUserMsg(String approvalId){
@@ -44,28 +48,28 @@ public class WeChatUserMsgUtils {
                 //用户所属部门编号
                 int department = Integer.parseInt(jsonArray1.getString(0));
 
-                Usermsg usermsg = new Usermsg();
-                usermsg.setUserid(userid);
-                usermsg.setName(name);
-                usermsg.setDepartment(department);
+                QywxSysUser user = getSysUser();
+                user.setUserid(userid);
+                user.setName(name);
+                user.setDepartment(department);
                 //判断数据库数据是否相同，不相同就修改
-                List<Usermsg> list2 = usermsgService.queryAll(null);
+                List<QywxSysUser> list2 = qywxSysUserService.queryAll(null);
 
                 for (int j=0;j<list2.size();j++){
                     if (list2.get(j).getUserid().equals(userid)){
                         if (!(list2.get(j).getName().equals(name)&&list2.get(j).getDepartment().equals(department))){
-                            usermsgService.update(usermsg);
+                            qywxSysUserService.update(user);
                         }
                     }
                 }
                 //查询数据如果没有相同的数据就添加
-                List<Usermsg> list3 = usermsgService.queryAll(usermsg);
+                List<QywxSysUser> list3 = qywxSysUserService.queryAll(user);
                 if (list3.size()==0){
-                    usermsgService.insert(usermsg);
+                    qywxSysUserService.insert(user);
                 }
             }
             //判断数据库有没有多余的数据，有就删除
-            List<Usermsg> list = usermsgService.queryAll(null);
+            List<QywxSysUser> list = qywxSysUserService.queryAll(null);
             for (int i=0;i<list.size();i++){
                 String userid = "";
                 boolean boo = true;
@@ -77,7 +81,7 @@ public class WeChatUserMsgUtils {
                     }
                 }
                 if (boo==true){
-                    usermsgService.deleteUsermsgByUserid(userid);
+                    qywxSysUserService.deleteQywxSysUserByUserid(userid);
                 }
             }
         }else {

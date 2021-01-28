@@ -95,10 +95,11 @@
         </dependency>
 
         <!-- pagehelper 分页插件 -->
+        <!-- https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper-spring-boot-starter -->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>1.2.5</version>
+            <version>1.2.12</version>
         </dependency>
 
         <!--测试包-->
@@ -228,24 +229,11 @@
             <version>29.0-jre</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
         <dependency>
             <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
+            <artifactId>springfox-boot-starter</artifactId>
             <version>3.0.0</version>
         </dependency>
-
-
-
-        <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-
-
-
 
 
     </dependencies>
@@ -257,10 +245,8 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <!--                <configuration>-->
-                <!--                    &lt;!&ndash;当有多个main方法的时候，系统不知道运行那个，这时由此指定运行哪个main，否则会出错&ndash;&gt;-->
                 <!--                    <mainClass>com.gag.enterprisewxmobile.EnterprisewxApplication</mainClass>-->
                 <!--                    <layout>ZIP</layout>-->
-                <!--                    &lt;!&ndash;编译出不带lib的jar包(就是编译出不带maven下载的jar的文件夹)&ndash;&gt;-->
                 <!--                    <includes>-->
                 <!--                        <include>-->
                 <!--                            <groupId>nothing</groupId>-->

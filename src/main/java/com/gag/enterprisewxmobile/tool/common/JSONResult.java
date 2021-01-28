@@ -97,7 +97,7 @@ public class JSONResult<T> extends ResponseEntity<Message> {
     }
 
     public static <T> JSONResult<T> tablePageLayui(List<T> data){
-        return new JSONResult(0,"",data);
+        return new JSONResult(0,"msg",data);
     }
 
     public static <T> JSONResult<T> tablePage(List<T> data){

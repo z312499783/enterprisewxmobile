@@ -9,11 +9,19 @@
         <result property="department" column="department" jdbcType="INTEGER"/>
     </resultMap>
 
+    <!--查询单个-->
+    <select id="queryById" resultMap="QywxSysUserMap">
+        select
+          usermsg_id, userid, name, department
+        from dbo.qywx_sys_user
+        where usermsg_id = #{usermsgId}
+    </select>
+
 
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="QywxSysUserMap">
         select
-          usermsg_id, userid, name, department
+        usermsg_id, userid, name, department
         from dbo.qywx_sys_user
         <where>
             <if test="usermsgId != null">
@@ -31,9 +39,9 @@
         </where>
     </select>
 
-    <select id="selectUserById" resultType="com.gag.enterprisewxmobile.system.user.entity.QywxSysUser">
+    <select id="findByName"  resultMap="QywxSysUserMap">
         select
-          usermsg_id, userid, name, department
+          usermsg_id, userid, name, department,role
         from dbo.qywx_sys_user
         where userid = #{userid}
     </select>
@@ -58,9 +66,15 @@
         where userid = #{userid}
     </update>
 
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from dbo.qywx_sys_user where usermsg_id = #{usermsgId}
+    </delete>
+
 
     <delete id="deleteUsermsgByUserid">
-        delete from dbo.usermsg where userid = #{userid}
+        delete from dbo.qywx_sys_user where userid = #{userid}
     </delete>
+
 
 </mapper>

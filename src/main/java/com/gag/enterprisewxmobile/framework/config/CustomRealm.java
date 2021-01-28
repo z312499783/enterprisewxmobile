@@ -76,7 +76,7 @@ public class CustomRealm extends AuthorizingRealm {
         //1、判断用户名
         UsernamePasswordToken token = (UsernamePasswordToken)authenticationToken;
 
-        QywxSysUser user = qywxSysUserService.selectUserById(token.getUsername());
+        QywxSysUser user = qywxSysUserService.findByName(token.getUsername());
 
         if(user==null){
             //用户不存在

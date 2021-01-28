@@ -5,6 +5,10 @@ import com.gag.enterprisewxmobile.system.dict.dao.QywxSysDictDataDao;
 import com.gag.enterprisewxmobile.system.dict.service.QywxSysDictDataService;
 import com.gag.enterprisewxmobile.tool.common.ShiroUtils;
 import com.gag.enterprisewxmobile.tool.common.utils.Convert;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -16,6 +20,7 @@ import java.util.List;
  * @author makejava
  * @since 2021-01-11 17:05:45
  */
+//@CacheConfig(cacheNames = "qywxSysDictDataService")
 @Service("qywxSysDictDataService")
 public class QywxSysDictDataServiceImpl implements QywxSysDictDataService {
 
@@ -28,6 +33,7 @@ public class QywxSysDictDataServiceImpl implements QywxSysDictDataService {
      * @param dictData 字典数据信息
      * @return 字典数据集合信息
      */
+    //@Cacheable(key = "#root.targetClass.typeName")
     @Override
     public List<QywxSysDictData> selectDictDataList(QywxSysDictData dictData) {
         return qywxSysDictDataDao.selectDictDataList(dictData);
@@ -51,6 +57,7 @@ public class QywxSysDictDataServiceImpl implements QywxSysDictDataService {
      * @param dictValue 字典键值
      * @return 字典标签
      */
+
     @Override
     public String selectDictLabel(String dictType, String dictValue) {
         return qywxSysDictDataDao.selectDictLabel(dictType, dictValue);
@@ -67,6 +74,7 @@ public class QywxSysDictDataServiceImpl implements QywxSysDictDataService {
      * @param dictCode 字典数据ID
      * @return 结果
      */
+    //@CacheEvict(key = "#root.targetClass.typeName")
     @Override
     public int deleteDictDataById(int dictCode) {
         return qywxSysDictDataDao.deleteDictDataById(dictCode);
@@ -78,6 +86,7 @@ public class QywxSysDictDataServiceImpl implements QywxSysDictDataService {
      * @param ids 需要删除的数据
      * @return 结果
      */
+    //@CacheEvict(key = "#root.targetClass.typeName")
     @Override
     public int deleteDictDataByIds(String ids) {
         return qywxSysDictDataDao.deleteDictDataByIds(Convert.toStrArray(ids));
@@ -89,6 +98,7 @@ public class QywxSysDictDataServiceImpl implements QywxSysDictDataService {
      * @param dictData 字典数据信息
      * @return 结果
      */
+    //@CachePut(key = "#root.targetClass.typeName")
     @Override
     public int insertDictData(QywxSysDictData dictData) {
         dictData.setCreateBy(ShiroUtils.getSysUser().getUserid());
@@ -101,6 +111,7 @@ public class QywxSysDictDataServiceImpl implements QywxSysDictDataService {
      * @param dictData 字典数据信息
      * @return 结果
      */
+    //@CachePut(key = "#root.targetClass.typeName")
     @Override
     public int updateDictData(QywxSysDictData dictData) {
         dictData.setUpdateBy(ShiroUtils.getSysUser().getUserid());

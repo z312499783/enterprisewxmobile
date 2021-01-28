@@ -3,6 +3,7 @@ package com.gag.enterprisewxmobile.system.sendAppMsg.service.impl;
 import com.gag.enterprisewxmobile.system.sendAppMsg.entity.QywxSendappmsgAndLoginfo;
 import com.gag.enterprisewxmobile.system.sendAppMsg.dao.QywxSendappmsgAndLoginfoDao;
 import com.gag.enterprisewxmobile.system.sendAppMsg.service.QywxSendappmsgAndLoginfoService;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -14,8 +15,10 @@ import java.util.List;
  * @author makejava
  * @since 2020-06-08 17:13:00
  */
+@CacheConfig(cacheNames = "qywxSendappmsgAndLoginfoService")
 @Service("qywxSendappmsgAndLoginfoService")
 public class QywxSendappmsgAndLoginfoServiceImpl implements QywxSendappmsgAndLoginfoService {
+
     @Resource
     private QywxSendappmsgAndLoginfoDao qywxSendappmsgAndLoginfoDao;
 

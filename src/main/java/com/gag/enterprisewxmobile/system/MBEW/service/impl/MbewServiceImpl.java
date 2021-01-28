@@ -16,6 +16,7 @@ import java.util.List;
  */
 @Service("mbewService")
 public class MbewServiceImpl implements MbewService {
+
     @Resource
     private MbewDao mbewDao;
 

@@ -65,7 +65,7 @@ public class ShopPosController extends BaseController {
     @ApiOperation(value = "查询shoppos",notes = "根据时间查询shoppos",response = JSONResult.class,httpMethod = "GET")
     public JSONResult selectmseg(@ApiParam(name = "shopPos",value = "传shopPos对象,shopPos对象父类params属性参数startTime,endTime") ShopPos shopPos){
         List<LinkedHashMap> list = this.shopPosService.selectmseg(shopPos);
-        return JSONResult.success(list);
+        return JSONResult.tablePageLayui(list);
     };
 
     /**

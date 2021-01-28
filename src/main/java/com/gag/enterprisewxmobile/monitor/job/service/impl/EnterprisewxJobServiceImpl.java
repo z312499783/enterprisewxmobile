@@ -13,6 +13,7 @@ import org.quartz.CronTrigger;
 import org.quartz.Scheduler;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.concurrent.ExecutorService;

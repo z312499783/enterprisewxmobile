@@ -1,6 +1,7 @@
 package com.gag.enterprisewxmobile.system.user.dao;
 
 import com.gag.enterprisewxmobile.system.user.entity.QywxSysUser;
+import com.gag.enterprisewxmobile.system.user.entity.Usermsg;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
@@ -15,7 +16,21 @@ import java.util.List;
 public interface QywxSysUserDao {
 
 
-    QywxSysUser selectUserById(String userid);
+
+    /**
+     * 通过企业微信账号查询数据
+     * @param userid
+     * @return
+     */
+    QywxSysUser findByName(String userid);
+
+    /**
+     * 通过ID查询单条数据
+     *
+     * @param usermsgId 主键
+     * @return 实例对象
+     */
+    QywxSysUser queryById(Integer usermsgId);
 
     /**
      * 通过实体作为筛选条件查询
@@ -40,6 +55,14 @@ public interface QywxSysUserDao {
      * @return 影响行数
      */
     int update(QywxSysUser qywxSysUser);
+
+    /**
+     * 通过主键删除数据
+     *
+     * @param usermsgId 主键
+     * @return 影响行数
+     */
+    int deleteById(Integer usermsgId);
 
     /**
      * 删除企业微信用户信息

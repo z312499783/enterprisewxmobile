@@ -43,7 +43,7 @@ public class QywxSysMenuController {
     }
 
     @RequiresPermissions("qywxSysMenu:select")
-    @GetMapping("/list")
+    @GetMapping("/select")
     @ResponseBody
     @ApiOperation(value = "菜单权限表(QywxSysMenu)",notes = "查询菜单权限表",response = JSONResult.class,httpMethod = "GET")
     public JSONResult list(QywxSysMenu menu)
@@ -56,8 +56,8 @@ public class QywxSysMenuController {
      * 删除菜单
      */
     @Log(title = "菜单管理", businessType = BusinessType.DELETE)
-    @RequiresPermissions("qywxSysMenu:remove")
-    @PostMapping("/remove/{menuId}")
+    @RequiresPermissions("qywxSysMenu:delete")
+    @PostMapping("/delete/{menuId}")
     @ResponseBody
     @ApiOperation(value = "菜单权限表(QywxSysMenu)",notes = "删除菜单权限表",response = JSONResult.class,httpMethod = "POST")
     public JSONResult remove(@PathVariable("menuId") int menuId)
@@ -78,8 +78,8 @@ public class QywxSysMenuController {
      * 新增保存菜单
      */
     @Log(title = "菜单管理", businessType = BusinessType.INSERT)
-    @RequiresPermissions("qywxSysMenu:add")
-    @PostMapping("/add")
+    @RequiresPermissions("qywxSysMenu:insert")
+    @PostMapping("/insert")
     @ResponseBody
     @ApiOperation(value = "菜单权限表(QywxSysMenu)",notes = "添加菜单权限表",response = JSONResult.class,httpMethod = "POST")
     public JSONResult addSave(QywxSysMenu menu)
@@ -92,8 +92,8 @@ public class QywxSysMenuController {
      * 修改保存菜单
      */
     @Log(title = "菜单管理", businessType = BusinessType.UPDATE)
-    @RequiresPermissions("qywxSysMenu:edit")
-    @PostMapping("/edit")
+    @RequiresPermissions("qywxSysMenu:update")
+    @PostMapping("/update")
     @ResponseBody
     @ApiOperation(value = "菜单权限表(QywxSysMenu)",notes = "修改菜单权限表",response = JSONResult.class,httpMethod = "POST")
     public JSONResult editSave(QywxSysMenu menu)

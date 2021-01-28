@@ -1,5 +1,7 @@
 package com.gag.enterprisewxmobile.framework.cache;
 
+import com.gag.enterprisewxmobile.framework.page.Constants;
+import com.gag.enterprisewxmobile.tool.common.utils.ServletUtils;
 import org.springframework.data.redis.core.BoundListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -88,6 +90,7 @@ public class RedisUtil {
         return key==null?null:redisTemplate.opsForValue().get(key);
     }
 
+
     /**
      * 普通缓存放入
      * @param key 键
@@ -124,6 +127,7 @@ public class RedisUtil {
             return false;
         }
     }
+
 
     /**
      * 递增

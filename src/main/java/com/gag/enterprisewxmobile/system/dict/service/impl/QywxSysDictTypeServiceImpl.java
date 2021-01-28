@@ -8,6 +8,10 @@ import com.gag.enterprisewxmobile.tool.common.ShiroUtils;
 import com.gag.enterprisewxmobile.tool.common.exception.BusinessException;
 import com.gag.enterprisewxmobile.tool.common.utils.Convert;
 import com.gag.enterprisewxmobile.tool.common.utils.StringUtils;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -19,6 +23,7 @@ import java.util.List;
  * @author makejava
  * @since 2021-01-11 17:06:10
  */
+@CacheConfig(cacheNames = "qywxSysDictTypeService")
 @Service("qywxSysDictTypeService")
 public class QywxSysDictTypeServiceImpl implements QywxSysDictTypeService {
 
@@ -45,6 +50,7 @@ public class QywxSysDictTypeServiceImpl implements QywxSysDictTypeService {
      *
      * @return 字典类型集合信息
      */
+    @Cacheable(key = "#root.targetClass.typeName")
     @Override
     public List<QywxSysDictType> selectDictTypeAll()
     {
@@ -69,6 +75,7 @@ public class QywxSysDictTypeServiceImpl implements QywxSysDictTypeService {
      * @param dictId 字典ID
      * @return 结果
      */
+    @CacheEvict(key = "#root.targetClass.typeName")
     @Override
     public int deleteDictTypeById(int dictId)
     {
@@ -81,6 +88,7 @@ public class QywxSysDictTypeServiceImpl implements QywxSysDictTypeService {
      * @param ids 需要删除的数据
      * @return 结果
      */
+    @CacheEvict(key = "#root.targetClass.typeName")
     @Override
     public int deleteDictTypeByIds(String ids) throws BusinessException
     {
@@ -103,6 +111,7 @@ public class QywxSysDictTypeServiceImpl implements QywxSysDictTypeService {
      * @param dictType 字典类型信息
      * @return 结果
      */
+    @CachePut(key = "#root.targetClass.typeName")
     @Override
     public int insertDictType(QywxSysDictType dictType)
     {
@@ -116,6 +125,7 @@ public class QywxSysDictTypeServiceImpl implements QywxSysDictTypeService {
      * @param dictType 字典类型信息
      * @return 结果
      */
+    @CachePut(key = "#root.targetClass.typeName")
     @Override
     public int updateDictType(QywxSysDictType dictType)
     {

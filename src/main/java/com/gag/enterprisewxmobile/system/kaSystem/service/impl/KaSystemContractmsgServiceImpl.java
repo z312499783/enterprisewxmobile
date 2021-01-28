@@ -3,6 +3,7 @@ package com.gag.enterprisewxmobile.system.kaSystem.service.impl;
 import com.gag.enterprisewxmobile.system.kaSystem.entity.KaSystemContractmsg;
 import com.gag.enterprisewxmobile.system.kaSystem.dao.KaSystemContractmsgDao;
 import com.gag.enterprisewxmobile.system.kaSystem.service.KaSystemContractmsgService;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,6 +16,7 @@ import java.util.Map;
  * @author makejava
  * @since 2020-10-30 15:07:35
  */
+//@CacheConfig(cacheNames = "kaSystemContractmsgService")
 @Service("kaSystemContractmsgService")
 public class KaSystemContractmsgServiceImpl implements KaSystemContractmsgService {
     @Resource
@@ -31,17 +33,6 @@ public class KaSystemContractmsgServiceImpl implements KaSystemContractmsgServic
         return this.kaSystemContractmsgDao.queryById(autoid);
     }
 
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    @Override
-    public List<KaSystemContractmsg> queryAllByLimit(int offset, int limit) {
-        return this.kaSystemContractmsgDao.queryAllByLimit(offset, limit);
-    }
 
     /**
      * 新增数据

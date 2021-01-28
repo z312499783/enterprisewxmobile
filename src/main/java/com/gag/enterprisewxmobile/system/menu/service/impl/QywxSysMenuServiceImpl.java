@@ -10,6 +10,8 @@ import com.gag.enterprisewxmobile.system.user.entity.QywxSysUser;
 import com.gag.enterprisewxmobile.tool.common.ShiroUtils;
 import com.gag.enterprisewxmobile.tool.common.utils.StringUtils;
 import com.gag.enterprisewxmobile.tool.common.utils.TreeUtils;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,6 +24,7 @@ import java.util.*;
  * @author makejava
  * @since 2020-12-28 13:40:15
  */
+//@CacheConfig(cacheNames = "qywxSysMenuService")
 @Service("qywxSysMenuService")
 public class QywxSysMenuServiceImpl implements QywxSysMenuService {
 

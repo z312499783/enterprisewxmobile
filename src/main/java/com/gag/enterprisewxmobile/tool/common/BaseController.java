@@ -34,10 +34,12 @@ public class BaseController {
         PageDomain pageDomain = TableSupport.buildPageRequest();
         Integer pageNum = pageDomain.getPageNum();
         Integer pageSize = pageDomain.getPageSize();
-        if (StringUtils.isNotNull(pageNum) && StringUtils.isNotNull(pageSize))
-        {
+        if (StringUtils.isNotNull(pageNum) && StringUtils.isNotNull(pageSize)){
             String orderBy = pageDomain.getOrderBy();
             PageHelper.startPage(pageNum, pageSize, orderBy);
+        }else {
+            String orderBy = pageDomain.getOrderBy();
+            PageHelper.startPage(1, 10, orderBy);
         }
     }
 

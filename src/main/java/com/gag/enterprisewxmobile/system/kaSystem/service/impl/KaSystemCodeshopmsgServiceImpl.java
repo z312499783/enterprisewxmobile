@@ -3,6 +3,8 @@ package com.gag.enterprisewxmobile.system.kaSystem.service.impl;
 import com.gag.enterprisewxmobile.system.kaSystem.entity.KaSystemCodeshopmsg;
 import com.gag.enterprisewxmobile.system.kaSystem.dao.KaSystemCodeshopmsgDao;
 import com.gag.enterprisewxmobile.system.kaSystem.service.KaSystemCodeshopmsgService;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,8 +17,11 @@ import java.util.Map;
  * @author makejava
  * @since 2020-10-30 15:07:11
  */
+//@CacheConfig(cacheNames = "kaSystemCodeshopmsgService")
 @Service("kaSystemCodeshopmsgService")
 public class KaSystemCodeshopmsgServiceImpl implements KaSystemCodeshopmsgService {
+
+
     @Resource
     private KaSystemCodeshopmsgDao kaSystemCodeshopmsgDao;
 
@@ -29,18 +34,6 @@ public class KaSystemCodeshopmsgServiceImpl implements KaSystemCodeshopmsgServic
     @Override
     public KaSystemCodeshopmsg queryById(Integer autoid) {
         return this.kaSystemCodeshopmsgDao.queryById(autoid);
-    }
-
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    @Override
-    public List<KaSystemCodeshopmsg> queryAllByLimit(int offset, int limit) {
-        return this.kaSystemCodeshopmsgDao.queryAllByLimit(offset, limit);
     }
 
     /**

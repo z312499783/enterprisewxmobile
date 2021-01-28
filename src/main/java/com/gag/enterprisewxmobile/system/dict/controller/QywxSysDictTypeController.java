@@ -24,7 +24,7 @@ import java.util.List;
  */
 @Api(value = "字典数据表")
 @Controller
-@RequestMapping("qywxSysDictType")
+@RequestMapping("dict/type")
 public class QywxSysDictTypeController extends BaseController {
 
     /**
@@ -34,7 +34,7 @@ public class QywxSysDictTypeController extends BaseController {
     private QywxSysDictTypeService qywxSysDictTypeService;
 
     @PostMapping("select")
-    @RequiresPermissions("dict:select")
+    //@RequiresPermissions("dict:select")
     @ResponseBody
     @ApiOperation(value = "字典数据表",notes = "查询字典数据表",response = JSONResult.class,httpMethod = "POST")
     public JSONResult list(QywxSysDictType dictType)
@@ -48,7 +48,7 @@ public class QywxSysDictTypeController extends BaseController {
      * 新增保存字典类型
      */
     @Log(title = "字典类型", businessType = BusinessType.INSERT)
-    @RequiresPermissions("dict:insert")
+    //@RequiresPermissions("dict:insert")
     @PostMapping("insert")
     @ResponseBody
     @ApiOperation(value = "字典数据表",notes = "新增字典数据表",response = JSONResult.class,httpMethod = "POST")
@@ -61,7 +61,7 @@ public class QywxSysDictTypeController extends BaseController {
      * 修改保存字典类型
      */
     @Log(title = "字典类型", businessType = BusinessType.UPDATE)
-    @RequiresPermissions("dict:update")
+    //@RequiresPermissions("dict:update")
     @PostMapping("update")
     @ResponseBody
     @ApiOperation(value = "字典数据表",notes = "修改字典数据表",response = JSONResult.class,httpMethod = "POST")
@@ -70,7 +70,7 @@ public class QywxSysDictTypeController extends BaseController {
     }
 
     @Log(title = "字典类型", businessType = BusinessType.DELETE)
-    @RequiresPermissions("dict:delete")
+    //@RequiresPermissions("dict:delete")
     @PostMapping("delete")
     @ResponseBody
     @ApiOperation(value = "字典数据表",notes = "删除字典数据表",response = JSONResult.class,httpMethod = "POST")

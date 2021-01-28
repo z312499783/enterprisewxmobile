@@ -48,16 +48,18 @@ public class LoginController extends BaseController {
      * @param response
      */
     @RequestMapping("login")
-    public void login(HttpServletRequest request, HttpServletResponse response){
-        String state = request.getParameter("state");
-        //获取路径,然后替换具体的参数
-        String GET_WEIXIN_OAUTH_URL = WeChatUtils.QY_WEIXIN_OAUTH_URL;
-        String url = GET_WEIXIN_OAUTH_URL.replace("CORPID","ww0ddb06bb7e847826").replace("REDIRECT_URI","www.granlux.net:7671/usermsg/index").replace("STATE",state);
+    public JSONResult login(HttpServletRequest request, HttpServletResponse response){
         try {
+            String state = request.getParameter("state");
+            //获取路径,然后替换具体的参数
+            String GET_WEIXIN_OAUTH_URL = WeChatUtils.QY_WEIXIN_OAUTH_URL;
+            String url = GET_WEIXIN_OAUTH_URL.replace("CORPID","ww0ddb06bb7e847826").replace("REDIRECT_URI","www.granlux.net:7671/usermsg/index").replace("STATE",state);
             response.sendRedirect(url);
-        } catch (IOException e) {
+            return JSONResult.success("");
+        } catch (Exception e) {
             log.error("构造网页授权链接获取code失败:"+request.getRequestURI()+",错误提示:"+e);
             e.printStackTrace();
+            return JSONResult.failMsg("请使用正确登陆方式");
         }
     }
 

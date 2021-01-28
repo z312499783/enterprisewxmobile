@@ -1,6 +1,7 @@
 package com.gag.enterprisewxmobile.system.user.service;
 
 import com.gag.enterprisewxmobile.system.user.entity.QywxSysUser;
+
 import java.util.List;
 
 /**
@@ -11,8 +12,13 @@ import java.util.List;
  */
 public interface QywxSysUserService {
 
-    QywxSysUser selectUserById(String userid);
 
+    /**
+     * 通过企业微信账号查询数据
+     * @param userid
+     * @return
+     */
+    QywxSysUser findByName(String userid);
 
     /**
      * 通过实体作为筛选条件查询
@@ -23,26 +29,43 @@ public interface QywxSysUserService {
     List<QywxSysUser> queryAll(QywxSysUser qywxSysUser);
 
     /**
+     * 通过ID查询单条数据
+     *
+     * @param usermsgId 主键
+     * @return 实例对象
+     */
+    QywxSysUser queryById(Integer usermsgId);
+
+
+    /**
      * 新增数据
      *
      * @param qywxSysUser 实例对象
-     * @return 影响行数
+     * @return 实例对象
      */
-    int insert(QywxSysUser qywxSysUser);
+    QywxSysUser insert(QywxSysUser qywxSysUser);
 
     /**
      * 修改数据
      *
      * @param qywxSysUser 实例对象
-     * @return 影响行数
+     * @return 实例对象
      */
-    int update(QywxSysUser qywxSysUser);
+    QywxSysUser update(QywxSysUser qywxSysUser);
+
+    /**
+     * 通过主键删除数据
+     *
+     * @param usermsgId 主键
+     * @return 是否成功
+     */
+    boolean deleteById(Integer usermsgId);
 
     /**
      * 删除企业微信用户信息
      * @param userid
      * @return
      */
-    int deleteUsermsgByUserid(String userid);
+    int deleteQywxSysUserByUserid(String userid);
 
 }

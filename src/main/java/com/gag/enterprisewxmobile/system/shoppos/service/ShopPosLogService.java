@@ -1,6 +1,8 @@
 package com.gag.enterprisewxmobile.system.shoppos.service;
 
 import com.gag.enterprisewxmobile.system.shoppos.entity.ShopPosLog;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**

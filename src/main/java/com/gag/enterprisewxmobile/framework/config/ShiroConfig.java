@@ -49,12 +49,12 @@ public class ShiroConfig {
 //        filterMap.put("/mbew/add","perms[mbew:add]");
 
         //全部请求都拦截
-        //filterMap.put("/**","authc");
+        filterMap.put("/**","authc");
 
         //修改调整的登录页面
-        shiroFilterFactoryBean.setLoginUrl("error");
+        shiroFilterFactoryBean.setLoginUrl("/login/login");
         //设置未授权提示页面
-        shiroFilterFactoryBean.setUnauthorizedUrl("/usermsg/error");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/login/login");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
 

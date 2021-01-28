@@ -1,11 +1,17 @@
 package com.gag.enterprisewxmobile.system.shoppos.service.impl;
 
+import com.gag.enterprisewxmobile.framework.cache.RedisUtil;
 import com.gag.enterprisewxmobile.system.shoppos.entity.ShopPosLog;
 import com.gag.enterprisewxmobile.system.shoppos.dao.ShopPosLogDao;
 import com.gag.enterprisewxmobile.system.shoppos.service.ShopPosLogService;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -18,6 +24,9 @@ import java.util.List;
 public class ShopPosLogServiceImpl implements ShopPosLogService {
     @Resource
     private ShopPosLogDao shopPosLogDao;
+
+    @Resource
+    private RedisUtil redisUtil;
 
     /**
      * 通过ID查询单条数据
